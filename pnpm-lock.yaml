@@ -20,6 +20,9 @@ dependencies:
   axios:
     specifier: ^1.6.2
     version: 1.6.2
+  line-notify-nodejs:
+    specifier: ^1.0.1
+    version: 1.0.1
   reflect-metadata:
     specifier: ^0.1.13
     version: 0.1.13
@@ -1692,6 +1695,14 @@ packages:
 
   /asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
+
+  /axios@0.26.1:
+    resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
+    dependencies:
+      follow-redirects: 1.15.3
+    transitivePeerDependencies:
+      - debug
+    dev: false
 
   /axios@1.6.2:
     resolution: {integrity: sha512-7i24Ri4pmDRfJTR7LDBhsOTtcm+9kjX5WiY1X3wIisx6G9So3pfMkEiU7emUBe46oceVImccTEM3k6C5dbVW8A==}
@@ -3822,6 +3833,14 @@ packages:
       prelude-ls: 1.2.1
       type-check: 0.4.0
     dev: true
+
+  /line-notify-nodejs@1.0.1:
+    resolution: {integrity: sha512-pqMmFa+VFo0swA7iOmTDCU6couJidLD69XlQPazB4dCRnOTUFxVdQOw77iXOSPh/vFM90EyEaeJg/fX4Fq1E7Q==}
+    dependencies:
+      axios: 0.26.1
+    transitivePeerDependencies:
+      - debug
+    dev: false
 
   /lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
