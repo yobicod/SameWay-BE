@@ -5,7 +5,7 @@ export class NotifyService {
   public async notifyLineChannel(): Promise<boolean> {
     try {
       const lineNotify = require('line-notify-nodejs')(LINE_NOTIFY_TEST_TOKEN);
-      let isNoti;
+      let isNoti = true;
       lineNotify
         .notify({
           message: '\nHello World',
@@ -17,8 +17,8 @@ export class NotifyService {
           isNoti = false;
           console.log(`error while push noti : ${error}`);
         });
-      if (!isNoti) return false;
-      return true;
+      if (isNoti) return true;
+      return false;
     } catch (error) {
       throw error;
     }
