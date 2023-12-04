@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Request } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Request } from '@nestjs/common';
 import { NotifyService } from './noify.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CarDto } from './dto/notify.dto';
@@ -19,8 +19,17 @@ export class NotifyController {
     }
   }
 
-  @Get('test')
-  async test(@Query() queryParams: CarDto): Promise<string> {
+  @Get('body')
+  async query(@Query() queryParams: CarDto): Promise<string> {
+    console.log(
+      '🚀 ~ file: notify.controller.ts:24 ~ NotifyController ~ test ~ queryParams:',
+      queryParams,
+    );
+    return 'hello world';
+  }
+
+  @Get('query')
+  async body(@Body() queryParams: CarDto): Promise<string> {
     console.log(
       '🚀 ~ file: notify.controller.ts:24 ~ NotifyController ~ test ~ queryParams:',
       queryParams,
