@@ -13,18 +13,24 @@ model driver {
   updatedAt       DateTime?  @updatedAt
   driverFirstName String
   driverLastName  String
-  plate           String    @unique
+  plate           String     @unique
   carType         String
   sex             String
   phoneNumber     String
 }
 
-
 model user {
-  id              String        @id @default(uuid()) @db.Uuid
+  id              String     @id @default(uuid()) @db.Uuid
   createdAt       DateTime?  @default(now())
   updatedAt       DateTime?  @updatedAt
   fullName        String
-  email           String    @unique
+  email           String     @unique
   Role            String
+}
+
+model emergency {
+  id              Int        @id @default(autoincrement())
+  passengerName   String
+  driverName      String
+  message         String
 }
