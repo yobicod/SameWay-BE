@@ -1,4 +1,11 @@
 export class CarDto {
   id: number;
-  name: string;
+  message: string;
+}
+
+export class EmergencyNotification {
+  id: number;
+  passengerName: string;
+  driverName: string;
+  message: string;
 }
