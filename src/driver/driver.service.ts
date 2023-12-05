@@ -6,14 +6,23 @@ import { IDriverInfo } from './interfaces/driver';
 export class DriverService {
   constructor(private readonly prisma: PrismaService) {}
   public async getAllDrivers(): Promise<IDriverInfo[]> {
-    const allDrivers = await this.prisma.driver.findMany();
-    return allDrivers;
+    try {
+      const allDrivers = await this.prisma.driver.findMany();
+      return allDrivers;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  public async createDriver(req: IDriverInfo): Promise<Boolean> {
-    const createDriver = await this.prisma.driver.create({
-      data: req,
-    });
-    return true;
+  public async createDriver(req: IDriverInfo): Promise<boolean> {
+    try {
+      const createDriver = await this.prisma.driver.create({
+        data: req,
+      });
+      if (!createDriver) return false;
+      return true;
+    } catch (error) {
+      throw error;
+    }
   }
 }

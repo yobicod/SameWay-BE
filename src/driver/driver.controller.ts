@@ -10,18 +10,28 @@ export class DriverController {
   constructor(private readonly driverService: DriverService) {}
   @Get()
   async getAllDrivers(): Promise<IDriverInfo[]> {
-    const allDrivers = await this.driverService.getAllDrivers();
-    return allDrivers;
+    try {
+      const allDrivers = await this.driverService.getAllDrivers();
+      return allDrivers;
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: driver.controller.ts:16 ~ DriverController ~ getAllDrivers ~ error:',
+        error,
+      );
+    }
   }
 
   @Post()
-  async createDriver(@Body() driverInput: IDriverInfoDto): Promise<Boolean> {
-    console.log(
-      '🚀 ~ file: driver.controller.ts:19 ~ DriverController ~ createDriver ~ driverInput:',
-      driverInput,
-    );
-    const isCreated = await this.driverService.createDriver(driverInput);
-    if (!isCreated) return false;
-    return true;
+  async createDriver(@Body() driverInput: IDriverInfoDto): Promise<boolean> {
+    try {
+      const isCreated = await this.driverService.createDriver(driverInput);
+      if (!isCreated) return false;
+      return true;
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: driver.controller.ts:29 ~ DriverController ~ createDriver ~ error:',
+        error,
+      );
+    }
   }
 }

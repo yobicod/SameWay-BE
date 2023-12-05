@@ -1,24 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { LINE_NOTIFY_TEST_TOKEN } from './constants/noti';
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class NotifyService {
+  constructor(private readonly configService: ConfigService) {}
   public async notifyLineChannel(): Promise<boolean> {
     try {
-      const lineNotify = require('line-notify-nodejs')(LINE_NOTIFY_TEST_TOKEN);
-      let isNoti = true;
-      lineNotify
-        .notify({
-          message: '\nHello World',
-        })
-        .then(() => {
-          console.log('send completed');
-        })
-        .catch((error) => {
-          isNoti = false;
-          console.log(`error while push noti : ${error}`);
-        });
-      if (isNoti) return true;
-      return false;
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const lineNotify = require('line-notify-nodejs')(
+        this.configService.get('LINE_NOTIFY_TEST_TOKEN'),
+      );
+
+      lineNotify.notify({
+        message: '\nHello World',
+      });
+
+      return true;
     } catch (error) {
       throw error;
     }
