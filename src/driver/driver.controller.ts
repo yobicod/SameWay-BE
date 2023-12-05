@@ -15,7 +15,7 @@ export class DriverController {
   }
 
   @Post()
-  async createDriver(@Body() driverInput: IDriverInfoDto): Promise<Boolean> {
+  async createDriver(@Body() driverInput: IDriverInfoDto): Promise<boolean> {
     console.log(
       '🚀 ~ file: driver.controller.ts:19 ~ DriverController ~ createDriver ~ driverInput:',
       driverInput,
