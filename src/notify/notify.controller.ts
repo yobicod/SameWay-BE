@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Request } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { NotifyService } from './noify.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CarDto } from './dto/notify.dto';
@@ -7,7 +7,7 @@ import { CarDto } from './dto/notify.dto';
 export class NotifyController {
   constructor(private readonly notifyService: NotifyService) {}
   @Post('line')
-  async notify(@Request() request) {
+  async notify() {
     try {
       const notify = await this.notifyService.notifyLineChannel();
       return notify;

@@ -4,6 +4,7 @@ import { LINE_NOTIFY_TEST_TOKEN } from './constants/noti';
 export class NotifyService {
   public async notifyLineChannel(): Promise<boolean> {
     try {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const lineNotify = require('line-notify-nodejs')(LINE_NOTIFY_TEST_TOKEN);
       let isNoti = true;
       lineNotify
