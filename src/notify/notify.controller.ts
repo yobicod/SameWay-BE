@@ -19,7 +19,7 @@ export class NotifyController {
     }
   }
 
-  @Get('body')
+  @Get('query')
   async query(@Query() queryParams: CarDto): Promise<string> {
     console.log(
       '🚀 ~ file: notify.controller.ts:24 ~ NotifyController ~ test ~ queryParams:',
@@ -28,7 +28,7 @@ export class NotifyController {
     return 'hello world';
   }
 
-  @Get('query')
+  @Get('bpdy')
   async body(@Body() queryParams: CarDto): Promise<string> {
     console.log(
       '🚀 ~ file: notify.controller.ts:24 ~ NotifyController ~ test ~ queryParams:',

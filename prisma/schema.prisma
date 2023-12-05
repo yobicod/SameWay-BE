@@ -8,10 +8,12 @@ datasource db {
 }
 
 model driver {
-  id              Int    @id @default(autoincrement())
+  id              Int       @id @default(autoincrement())
+  createdAt       DateTime?  @default(now())
+  updatedAt       DateTime?  @updatedAt
   driverFirstName String
   driverLastName  String
-  plate           String @unique
+  plate           String    @unique
   carType         String
   sex             String
   phoneNumber     String
@@ -19,8 +21,10 @@ model driver {
 
 
 model user {
-  id              Int @id @default(autoincrement())
+  id              Int       @id @default(autoincrement())
+  createdAt       DateTime?  @default(now())
+  updatedAt       DateTime? @updatedAt
   fullName        String
-  email           String @unique
+  email           String    @unique
   Role            String
 }
