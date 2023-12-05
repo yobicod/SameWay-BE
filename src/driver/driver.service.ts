@@ -9,4 +9,11 @@ export class DriverService {
     const allDrivers = await this.prisma.driver.findMany();
     return allDrivers;
   }
+
+  public async createDriver(req: IDriverInfo): Promise<Boolean> {
+    const createDriver = await this.prisma.driver.create({
+      data: req,
+    });
+    return true;
+  }
 }
