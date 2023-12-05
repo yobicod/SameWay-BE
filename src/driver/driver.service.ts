@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { IDriverInfo } from './interfaces/driver';
+import { IDriverCreateInfoDto, IDriverUpdateInfoDto } from './dto/driver.dto';
 
 @Injectable()
 export class DriverService {
   constructor(private readonly prisma: PrismaService) {}
-  public async getAllDrivers(): Promise<IDriverInfo[]> {
+  public async getAllDrivers(): Promise<IDriverCreateInfoDto[]> {
     try {
       const allDrivers = await this.prisma.driver.findMany();
       return allDrivers;
@@ -14,15 +14,35 @@ export class DriverService {
     }
   }
 
-  public async createDriver(req: IDriverInfo): Promise<boolean> {
+  public async createDriver(req: IDriverCreateInfoDto): Promise<boolean> {
     try {
-      const createDriver = await this.prisma.driver.create({
+      await this.prisma.driver.create({
         data: req,
       });
-      if (!createDriver) return false;
       return true;
     } catch (error) {
-      throw error;
+      throw new InternalServerErrorException(error);
+    }
+  }
+
+  public async updateDriver(req: IDriverUpdateInfoDto): Promise<boolean> {
+    try {
+      await this.prisma.driver.update({
+        where: {
+          id: req.id,
+        },
+        data: {
+          carType: req.carType && undefined,
+          driverFirstName: req.driverFirstName,
+          driverLastName: req.driverLastName,
+          phoneNumber: req.phoneNumber,
+          plate: req.plate,
+          sex: req.sex,
+        },
+      });
+      return true;
+    } catch (error) {
+      throw new InternalServerErrorException(error);
     }
   }
 }
