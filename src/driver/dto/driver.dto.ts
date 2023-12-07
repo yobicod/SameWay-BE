@@ -17,3 +17,7 @@ export class IDriverUpdateInfoDto {
   sex?: string;
   phoneNumber?: string;
 }
+
+export class IDriverId {
+  id: string;
+}

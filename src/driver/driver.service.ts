@@ -14,6 +14,19 @@ export class DriverService {
     }
   }
 
+  public async getDriver(driverId: string) {
+    try {
+      const driver = await this.prisma.driver.findUnique({
+        where: {
+          id: driverId,
+        },
+      });
+      return driver;
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
+
   public async createDriver(req: IDriverCreateInfoDto): Promise<boolean> {
     try {
       await this.prisma.driver.create({
