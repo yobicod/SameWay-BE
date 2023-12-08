@@ -1,7 +1,11 @@
-import { Body, Controller, Get, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Query } from '@nestjs/common';
 import { DriverService } from './driver.service';
 import { ApiTags } from '@nestjs/swagger';
-import { IDriverCreateInfoDto, IDriverUpdateInfoDto } from './dto/driver.dto';
+import {
+  IDriverCreateInfoDto,
+  IDriverId,
+  IDriverUpdateInfoDto,
+} from './dto/driver.dto';
 
 @ApiTags('driver')
 @Controller('driver')
@@ -19,7 +23,20 @@ export class DriverController {
       );
     }
   }
-
+  @Get('query')
+  async getDriver(
+    @Query() queryParamsDriverId: IDriverId,
+  ): Promise<IDriverCreateInfoDto> {
+    try {
+      const driver = await this.driverService.getDriver(queryParamsDriverId.id);
+      return driver;
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: driver.controller.ts:28 ~ DriverController ~ getDriver ~ error:',
+        error,
+      );
+    }
+  }
   @Post()
   async createDriver(
     @Body() driverInput: IDriverCreateInfoDto,
