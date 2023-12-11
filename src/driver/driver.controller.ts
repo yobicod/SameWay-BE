@@ -6,10 +6,11 @@ import {
   IDriverId,
   IDriverUpdateInfoDto,
 } from './dto/driver.dto';
+import { IDriverServiceInterface } from './interfaces/dirver.service.interface';
 
 @ApiTags('driver')
 @Controller('driver')
-export class DriverController {
+export class DriverController implements IDriverServiceInterface {
   constructor(private readonly driverService: DriverService) {}
   @Get()
   async getAllDrivers(): Promise<IDriverCreateInfoDto[]> {
@@ -23,7 +24,7 @@ export class DriverController {
       );
     }
   }
-  @Get('query')
+  @Get('get-driver-by-id')
   async getDriver(
     @Query() queryParamsDriverId: IDriverId,
   ): Promise<IDriverCreateInfoDto> {
@@ -37,16 +38,15 @@ export class DriverController {
       );
     }
   }
-  @Post()
+  @Post('create')
   async createDriver(
     @Body() driverInput: IDriverCreateInfoDto,
   ): Promise<boolean> {
     const isCreated = await this.driverService.createDriver(driverInput);
-
     return isCreated;
   }
 
-  @Patch()
+  @Patch('edit')
   async editDriver(
     @Body() driverInput: IDriverUpdateInfoDto,
   ): Promise<boolean> {
