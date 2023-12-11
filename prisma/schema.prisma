@@ -34,3 +34,10 @@ model emergency {
   driverName      String
   message         String
 }
+
+model ratingScore {
+  id              Int       @id @default(autoincrement())
+  driverId        String    
+  ratingScore     Int      
+  createdAt       DateTime?  @default(now())
+}
