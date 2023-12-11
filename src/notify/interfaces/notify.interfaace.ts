@@ -1,6 +1,6 @@
-import { EmergencyNotification } from '../dto/notify.dto';
+import { IEmergencyNotificationDto } from '../dto/notify.dto';
 
 export interface INotifyService {
-  notifyLineChannel(req: EmergencyNotification): Promise<boolean>;
-  createNotificationLog(req: EmergencyNotification): Promise<boolean>;
+  notifyLineChannel(req: IEmergencyNotificationDto): Promise<boolean>;
+  createNotificationLog(req: IEmergencyNotificationDto): Promise<boolean>;
 }

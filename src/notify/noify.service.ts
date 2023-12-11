@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { EmergencyNotification } from './dto/notify.dto';
+import { IEmergencyNotificationDto } from './dto/notify.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { INotifyService } from './interfaces/notify.interfaace';
 
@@ -10,7 +10,9 @@ export class NotifyService implements INotifyService {
     private readonly configService: ConfigService,
     private readonly prisma: PrismaService,
   ) {}
-  public async notifyLineChannel(req: EmergencyNotification): Promise<boolean> {
+  public async notifyLineChannel(
+    req: IEmergencyNotificationDto,
+  ): Promise<boolean> {
     try {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const lineNotify = require('line-notify-nodejs')(
@@ -27,7 +29,7 @@ export class NotifyService implements INotifyService {
     }
   }
   public async createNotificationLog(
-    req: EmergencyNotification,
+    req: IEmergencyNotificationDto,
   ): Promise<boolean> {
     try {
       await this.prisma.emergency.create({

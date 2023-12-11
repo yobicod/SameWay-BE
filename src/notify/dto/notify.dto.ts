@@ -1,9 +1,9 @@
-export class CarDto {
+export class ICarDto {
   id: number;
   message: string;
 }
 
-export class EmergencyNotification {
+export class IEmergencyNotificationDto {
   id: number;
   passengerName: string;
   driverName: string;
