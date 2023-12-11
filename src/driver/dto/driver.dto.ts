@@ -1,4 +1,4 @@
-export class IDriverCreateInfoDto {
+export class IDriverinfoDto {
   id: string;
   driverFirstName: string;
   driverLastName: string;

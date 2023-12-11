@@ -1,12 +1,12 @@
 import {
-  IDriverCreateInfoDto,
   IDriverId,
   IDriverUpdateInfoDto,
+  IDriverinfoDto,
 } from '../dto/driver.dto';
 
 export interface IDriverServiceInterface {
-  getAllDrivers(): Promise<IDriverCreateInfoDto[]>;
+  getAllDrivers(): Promise<IDriverinfoDto[]>;
   getDriver(queryParamsDriverId: IDriverId);
-  createDriver(driverInput: IDriverCreateInfoDto): Promise<boolean>;
+  createDriver(driverInput: IDriverinfoDto): Promise<boolean>;
   editDriver(driverInput: IDriverUpdateInfoDto): Promise<boolean>;
 }

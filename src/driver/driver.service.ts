@@ -1,11 +1,11 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { IDriverCreateInfoDto, IDriverUpdateInfoDto } from './dto/driver.dto';
+import { IDriverinfoDto, IDriverUpdateInfoDto } from './dto/driver.dto';
 
 @Injectable()
 export class DriverService {
   constructor(private readonly prisma: PrismaService) {}
-  public async getAllDrivers(): Promise<IDriverCreateInfoDto[]> {
+  public async getAllDrivers(): Promise<IDriverinfoDto[]> {
     try {
       const allDrivers = await this.prisma.driver.findMany();
       return allDrivers;
@@ -18,7 +18,7 @@ export class DriverService {
     }
   }
 
-  public async getDriver(driverId: string) {
+  public async getDriver(driverId: string): Promise<IDriverinfoDto> {
     try {
       const driver = await this.prisma.driver.findUnique({
         where: {
@@ -35,7 +35,7 @@ export class DriverService {
     }
   }
 
-  public async createDriver(req: IDriverCreateInfoDto): Promise<boolean> {
+  public async createDriver(req: IDriverinfoDto): Promise<boolean> {
     try {
       await this.prisma.driver.create({
         data: req,

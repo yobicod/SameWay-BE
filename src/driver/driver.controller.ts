@@ -2,7 +2,7 @@ import { Body, Controller, Get, Patch, Post, Query } from '@nestjs/common';
 import { DriverService } from './driver.service';
 import { ApiTags } from '@nestjs/swagger';
 import {
-  IDriverCreateInfoDto,
+  IDriverinfoDto,
   IDriverId,
   IDriverUpdateInfoDto,
 } from './dto/driver.dto';
@@ -13,7 +13,7 @@ import { IDriverServiceInterface } from './interfaces/dirver.service.interface';
 export class DriverController implements IDriverServiceInterface {
   constructor(private readonly driverService: DriverService) {}
   @Get()
-  async getAllDrivers(): Promise<IDriverCreateInfoDto[]> {
+  async getAllDrivers(): Promise<IDriverinfoDto[]> {
     try {
       const allDrivers = await this.driverService.getAllDrivers();
       return allDrivers;
@@ -27,7 +27,7 @@ export class DriverController implements IDriverServiceInterface {
   @Get('get-driver-by-id')
   async getDriver(
     @Query() queryParamsDriverId: IDriverId,
-  ): Promise<IDriverCreateInfoDto> {
+  ): Promise<IDriverinfoDto> {
     try {
       const driver = await this.driverService.getDriver(queryParamsDriverId.id);
       return driver;
@@ -39,9 +39,7 @@ export class DriverController implements IDriverServiceInterface {
     }
   }
   @Post('create')
-  async createDriver(
-    @Body() driverInput: IDriverCreateInfoDto,
-  ): Promise<boolean> {
+  async createDriver(@Body() driverInput: IDriverinfoDto): Promise<boolean> {
     const isCreated = await this.driverService.createDriver(driverInput);
     return isCreated;
   }
