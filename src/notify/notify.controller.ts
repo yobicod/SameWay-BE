@@ -8,9 +8,9 @@ export class NotifyController {
   constructor(private readonly notifyService: NotifyService) {}
   @Post('line')
   async notify(@Body() emergencyInput: EmergencyNotification) {
-    const notify = await this.notifyService.notifyLineChannel(emergencyInput);
+    const isNotify = await this.notifyService.notifyLineChannel(emergencyInput);
     await this.notifyService.createNotificationLog(emergencyInput);
-    return notify;
+    return isNotify;
   }
 
   @Get('query')
