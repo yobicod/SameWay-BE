@@ -2,7 +2,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { IEmergencyNotificationDto } from './dto/notify.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { INotifyService } from './interfaces/notify.interfaace';
+import { INotifyService } from './interfaces/notify.interface';
 
 @Injectable()
 export class NotifyService implements INotifyService {
