@@ -10,6 +10,10 @@ export class DriverService {
       const allDrivers = await this.prisma.driver.findMany();
       return allDrivers;
     } catch (error) {
+      console.log(
+        '🚀 ~ file: driver.service.ts:13 ~ DriverService ~ getAllDrivers ~ error:',
+        error,
+      );
       throw error;
     }
   }
@@ -23,6 +27,10 @@ export class DriverService {
       });
       return driver;
     } catch (error) {
+      console.log(
+        '🚀 ~ file: driver.service.ts:26 ~ DriverService ~ getDriver ~ error:',
+        error,
+      );
       throw new InternalServerErrorException(error);
     }
   }
@@ -34,6 +42,10 @@ export class DriverService {
       });
       return true;
     } catch (error) {
+      console.log(
+        '🚀 ~ file: driver.service.ts:41 ~ DriverService ~ createDriver ~ error:',
+        error,
+      );
       throw new InternalServerErrorException(error);
     }
   }
@@ -55,6 +67,10 @@ export class DriverService {
       });
       return true;
     } catch (error) {
+      console.log(
+        '🚀 ~ file: driver.service.ts:66 ~ DriverService ~ updateDriver ~ error:',
+        error,
+      );
       throw new InternalServerErrorException(error);
     }
   }
