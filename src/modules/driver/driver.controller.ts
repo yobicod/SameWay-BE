@@ -24,7 +24,7 @@ import { RolesGuard } from '../auth/role.guard';
 export class DriverController implements IDriverServiceInterface {
   constructor(private readonly driverService: DriverService) {}
   @Get()
-  @UseGuards(RolesGuard)
+  @UseGuards(new RolesGuard())
   async getAllDrivers(): Promise<DriverinfoDto[]> {
     const allDrivers = await this.driverService.getAllDrivers();
     return allDrivers;
