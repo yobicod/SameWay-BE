@@ -5,6 +5,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { DriverService } from './driver.service';
@@ -16,12 +17,14 @@ import {
   UpdateDriverInfoDto,
 } from './dto/driver.dto';
 import { IDriverServiceInterface } from './interfaces/driver.service.interface';
+import { RolesGuard } from '../auth/role.guard';
 
 @ApiTags('driver')
 @Controller('driver')
 export class DriverController implements IDriverServiceInterface {
   constructor(private readonly driverService: DriverService) {}
   @Get()
+  @UseGuards(RolesGuard)
   async getAllDrivers(): Promise<DriverinfoDto[]> {
     const allDrivers = await this.driverService.getAllDrivers();
     return allDrivers;
