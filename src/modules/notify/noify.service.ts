@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { IEmergencyNotificationDto } from './dto/notify.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from 'src/modules/prisma/prisma.service';
 import { INotifyService } from './interfaces/notify.interface';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class NotifyService implements INotifyService {
 
       return true;
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
   public async createNotificationLog(
@@ -39,7 +39,7 @@ export class NotifyService implements INotifyService {
       });
       return true;
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 }
