@@ -14,7 +14,7 @@ export class DriverService {
         '🚀 ~ file: driver.service.ts:13 ~ DriverService ~ getAllDrivers ~ error:',
         error,
       );
-      throw error;
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -31,7 +31,7 @@ export class DriverService {
         '🚀 ~ file: driver.service.ts:26 ~ DriverService ~ getDriver ~ error:',
         error,
       );
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -46,7 +46,7 @@ export class DriverService {
         '🚀 ~ file: driver.service.ts:41 ~ DriverService ~ createDriver ~ error:',
         error,
       );
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -71,7 +71,7 @@ export class DriverService {
         '🚀 ~ file: driver.service.ts:66 ~ DriverService ~ updateDriver ~ error:',
         error,
       );
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 }

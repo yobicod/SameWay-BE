@@ -14,29 +14,15 @@ export class DriverController implements IDriverServiceInterface {
   constructor(private readonly driverService: DriverService) {}
   @Get()
   async getAllDrivers(): Promise<IDriverinfoDto[]> {
-    try {
-      const allDrivers = await this.driverService.getAllDrivers();
-      return allDrivers;
-    } catch (error) {
-      console.log(
-        '🚀 ~ file: driver.controller.ts:16 ~ DriverController ~ getAllDrivers ~ error:',
-        error,
-      );
-    }
+    const allDrivers = await this.driverService.getAllDrivers();
+    return allDrivers;
   }
   @Get('get-driver-by-id')
   async getDriver(
     @Query() queryParamsDriverId: IDriverId,
   ): Promise<IDriverinfoDto> {
-    try {
-      const driver = await this.driverService.getDriver(queryParamsDriverId.id);
-      return driver;
-    } catch (error) {
-      console.log(
-        '🚀 ~ file: driver.controller.ts:28 ~ DriverController ~ getDriver ~ error:',
-        error,
-      );
-    }
+    const driver = await this.driverService.getDriver(queryParamsDriverId.id);
+    return driver;
   }
   @Post('create')
   async createDriver(@Body() driverInput: IDriverinfoDto): Promise<boolean> {
