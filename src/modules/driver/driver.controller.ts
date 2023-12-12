@@ -1,10 +1,19 @@
-import { Body, Controller, Get, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Patch,
+  Post,
+  Query,
+  ValidationPipe,
+} from '@nestjs/common';
 import { DriverService } from './driver.service';
 import { ApiTags } from '@nestjs/swagger';
 import {
-  IDriverinfoDto,
-  IDriverId,
-  IDriverUpdateInfoDto,
+  CreateDriverInfoDto,
+  DriverId,
+  DriverinfoDto,
+  UpdateDriverInfoDto,
 } from './dto/driver.dto';
 import { IDriverServiceInterface } from './interfaces/driver.service.interface';
 
@@ -13,28 +22,31 @@ import { IDriverServiceInterface } from './interfaces/driver.service.interface';
 export class DriverController implements IDriverServiceInterface {
   constructor(private readonly driverService: DriverService) {}
   @Get()
-  async getAllDrivers(): Promise<IDriverinfoDto[]> {
+  async getAllDrivers(): Promise<DriverinfoDto[]> {
     const allDrivers = await this.driverService.getAllDrivers();
     return allDrivers;
   }
   @Get('get-driver-by-id')
   async getDriver(
-    @Query() queryParamsDriverId: IDriverId,
-  ): Promise<IDriverinfoDto> {
+    @Query() queryParamsDriverId: DriverId,
+  ): Promise<DriverinfoDto> {
     const driver = await this.driverService.getDriver(queryParamsDriverId.id);
     return driver;
   }
   @Post('create')
-  async createDriver(@Body() driverInput: IDriverinfoDto): Promise<boolean> {
-    const isCreated = await this.driverService.createDriver(driverInput);
+  async createDriver(
+    @Body()
+    createDriverInput: CreateDriverInfoDto,
+  ): Promise<boolean> {
+    const isCreated = await this.driverService.createDriver(createDriverInput);
     return isCreated;
   }
 
   @Patch('edit')
   async editDriver(
-    @Body() driverInput: IDriverUpdateInfoDto,
+    @Body() updateDriverInput: UpdateDriverInfoDto,
   ): Promise<boolean> {
-    const isUpdated = await this.driverService.updateDriver(driverInput);
+    const isUpdated = await this.driverService.updateDriver(updateDriverInput);
     return isUpdated;
   }
 }

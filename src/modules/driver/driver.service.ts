@@ -1,11 +1,15 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
-import { IDriverinfoDto, IDriverUpdateInfoDto } from './dto/driver.dto';
+import {
+  CreateDriverInfoDto,
+  DriverinfoDto,
+  UpdateDriverInfoDto,
+} from './dto/driver.dto';
 
 @Injectable()
 export class DriverService {
   constructor(private readonly prisma: PrismaService) {}
-  public async getAllDrivers(): Promise<IDriverinfoDto[]> {
+  public async getAllDrivers(): Promise<DriverinfoDto[]> {
     try {
       const allDrivers = await this.prisma.driver.findMany();
       return allDrivers;
@@ -18,7 +22,7 @@ export class DriverService {
     }
   }
 
-  public async getDriver(driverId: string): Promise<IDriverinfoDto> {
+  public async getDriver(driverId: string): Promise<DriverinfoDto> {
     try {
       const driver = await this.prisma.driver.findUnique({
         where: {
@@ -35,10 +39,12 @@ export class DriverService {
     }
   }
 
-  public async createDriver(req: IDriverinfoDto): Promise<boolean> {
+  public async createDriver(
+    createDriverInput: CreateDriverInfoDto,
+  ): Promise<boolean> {
     try {
       await this.prisma.driver.create({
-        data: req,
+        data: { ...createDriverInput },
       });
       return true;
     } catch (error) {
@@ -46,23 +52,25 @@ export class DriverService {
         '🚀 ~ file: driver.service.ts:41 ~ DriverService ~ createDriver ~ error:',
         error,
       );
-      throw new InternalServerErrorException(error.message);
+      throw new InternalServerErrorException(error, error.message);
     }
   }
 
-  public async updateDriver(req: IDriverUpdateInfoDto): Promise<boolean> {
+  public async updateDriver(
+    updateDriverInput: UpdateDriverInfoDto,
+  ): Promise<boolean> {
     try {
       await this.prisma.driver.update({
         where: {
-          id: req.id,
+          id: updateDriverInput.id,
         },
         data: {
-          carType: req.carType && undefined,
-          driverFirstName: req.driverFirstName,
-          driverLastName: req.driverLastName,
-          phoneNumber: req.phoneNumber,
-          plate: req.plate,
-          sex: req.sex,
+          carType: updateDriverInput.carType && undefined,
+          driverFirstName: updateDriverInput.driverFirstName && undefined,
+          driverLastName: updateDriverInput.driverLastName && undefined,
+          phoneNumber: updateDriverInput.phoneNumber && undefined,
+          plate: updateDriverInput.plate && undefined,
+          sex: updateDriverInput.sex && undefined,
         },
       });
       return true;
