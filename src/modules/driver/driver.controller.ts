@@ -6,7 +6,7 @@ import {
   IDriverId,
   IDriverUpdateInfoDto,
 } from './dto/driver.dto';
-import { IDriverServiceInterface } from './interfaces/dirver.service.interface';
+import { IDriverServiceInterface } from './interfaces/driver.service.interface';
 
 @ApiTags('driver')
 @Controller('driver')
