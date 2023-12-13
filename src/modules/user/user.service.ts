@@ -69,8 +69,8 @@ export class UserService {
       await this.prisma.user.update({
         data: {
           fullName: updateUserDriver.fullName && undefined,
-          email: updateUserDriver.email,
-          Role: updateUserDriver.Role,
+          email: updateUserDriver.email && undefined,
+          Role: updateUserDriver.Role && undefined,
         },
         where: {
           email: updateUserDriver.email,
