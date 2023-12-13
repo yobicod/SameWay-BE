@@ -47,8 +47,3 @@ export class UpdateUserInfoDto {
   @IsOptional()
   Role?: string;
 }
-
-export class UserIdDto {
-  @IsString()
-  id: string;
-}

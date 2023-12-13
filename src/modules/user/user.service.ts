@@ -4,7 +4,11 @@ import {
   Param,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { UserIdDto, UserInfoDto } from './dto/user.dto';
+import {
+  CreateUserInfoDto,
+  UpdateUserInfoDto,
+  UserInfoDto,
+} from './dto/user.dto';
 
 @Injectable()
 export class UserService {
@@ -39,7 +43,9 @@ export class UserService {
     }
   }
 
-  public async createUser(createUserDriver: any): Promise<boolean> {
+  public async createUser(
+    createUserDriver: CreateUserInfoDto,
+  ): Promise<boolean> {
     try {
       await this.prisma.user.create({
         data: {
@@ -56,16 +62,18 @@ export class UserService {
     }
   }
 
-  public async updateUser(updateUserDriver: any): Promise<boolean> {
+  public async updateUser(
+    updateUserDriver: UpdateUserInfoDto,
+  ): Promise<boolean> {
     try {
       await this.prisma.user.update({
         data: {
-          createdAt: updateUserDriver.createdAt,
-        },
-        where: {
-          fullName: updateUserDriver.fullName,
+          fullName: updateUserDriver.fullName && undefined,
           email: updateUserDriver.email,
           Role: updateUserDriver.Role,
+        },
+        where: {
+          email: updateUserDriver.email,
         },
       });
       return true;
