@@ -1,4 +1,4 @@
-import { IsDate, IsOptional, IsString } from 'class-validator';
+import { IsDate, IsEmail, IsOptional, IsString } from 'class-validator';
 
 export class UserInfoDto {
   @IsString()
@@ -13,37 +13,34 @@ export class UserInfoDto {
   @IsString()
   fullName: string;
 
-  @IsString()
+  @IsEmail()
   email: string;
 
   @IsString()
-  Role: string;
+  role: string;
 }
 
 export class CreateUserInfoDto {
   @IsString()
   fullName: string;
 
-  @IsString()
+  @IsEmail()
   email: string;
 
   @IsString()
-  Role: string;
+  role: string;
 }
 
 export class UpdateUserInfoDto {
   @IsString()
-  id: string;
-
-  @IsString()
   @IsOptional()
   fullName?: string;
 
-  @IsString()
+  @IsEmail()
   @IsOptional()
   email?: string;
 
   @IsString()
   @IsOptional()
-  Role?: string;
+  role?: string;
 }

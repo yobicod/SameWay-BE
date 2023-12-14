@@ -68,9 +68,9 @@ export class UserService {
     try {
       await this.prisma.user.update({
         data: {
-          fullName: updateUserDriver.fullName && undefined,
-          email: updateUserDriver.email && undefined,
-          Role: updateUserDriver.Role && undefined,
+          fullName: updateUserDriver.fullName || undefined,
+          email: updateUserDriver.email || undefined,
+          role: updateUserDriver.role || undefined,
         },
         where: {
           email: updateUserDriver.email,
@@ -86,11 +86,11 @@ export class UserService {
     }
   }
 
-  public async deleteUser(id: string): Promise<boolean> {
+  public async deleteUser(email: string): Promise<boolean> {
     try {
       await this.prisma.user.delete({
         where: {
-          id,
+          email,
         },
       });
       return true;
