@@ -17,6 +17,8 @@ model Driver {
   carType         String?
   sex             String?
   phoneNumber     String?
+
+  @@map("driver")
 }
 
 model User {
@@ -26,6 +28,8 @@ model User {
   fullName  String
   email     String    @unique
   role      String
+
+  @@map("user")
 }
 
 model Emergency {
@@ -33,6 +37,8 @@ model Emergency {
   passengerName String
   driverName    String
   message       String
+
+  @@map("emergency")
 }
 
 model RatingScore {
@@ -40,9 +46,13 @@ model RatingScore {
   driverId    String
   ratingScore Int
   createdAt   DateTime? @default(now())
+
+  @@map("rating_score")
 }
 
 model EnumGender {
-  id    Int    @id @default(autoincrement())
-  value String @unique
+  value       String  @id @unique
+  description String?
+
+  @@map("enum_genders")
 }

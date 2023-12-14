@@ -10,6 +10,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import {
   CreateUserInfoDto,
+  EnumGendersDto,
   UpdateUserInfoDto,
   UserInfoDto,
 } from './dto/user.dto';
@@ -23,6 +24,11 @@ export class UserController implements IUserService {
   @Get()
   async getAllUsers(): Promise<UserInfoDto[]> {
     return await this.userService.getAllUsers();
+  }
+
+  @Get('enum-genders')
+  async getGenders(): Promise<EnumGendersDto[]> {
+    return await this.userService.getEnumGenders();
   }
 
   @Post('create-user')

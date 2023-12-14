@@ -44,3 +44,10 @@ export class UpdateUserInfoDto {
   @IsOptional()
   role?: string;
 }
+
+export class EnumGendersDto {
+  @IsString()
+  value: string;
+  @IsString()
+  description: string;
+}

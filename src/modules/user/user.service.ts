@@ -6,6 +6,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import {
   CreateUserInfoDto,
+  EnumGendersDto,
   UpdateUserInfoDto,
   UserInfoDto,
 } from './dto/user.dto';
@@ -20,6 +21,19 @@ export class UserService {
     } catch (error) {
       console.log(
         '🚀 ~ file: user.service.ts:16 ~ UserService ~ getAllUser ~ error:',
+        error,
+      );
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  public async getEnumGenders(): Promise<EnumGendersDto[]> {
+    try {
+      const enumGenders = await this.prisma.enumGender.findMany();
+      return enumGenders;
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: user.service.ts:33 ~ UserService ~ getEnumGenders ~ error:',
         error,
       );
       throw new InternalServerErrorException(error.message);
