@@ -53,6 +53,5 @@ model RatingScore {
 model EnumGender {
   value       String  @id @unique
   description String?
-
   @@map("enum_genders")
 }
