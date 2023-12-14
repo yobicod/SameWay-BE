@@ -31,6 +31,11 @@ export class UserController implements IUserService {
     return await this.userService.getEnumGenders();
   }
 
+  @Get('has-user-in-system/:email')
+  async checkUser(@Param('email') email: string) {
+    return await this.userService.checkHasUser(email);
+  }
+
   @Post('create-user')
   async createUser(
     @Body() createUserInput: CreateUserInfoDto,

@@ -40,7 +40,7 @@ export class UserService {
     }
   }
 
-  public async getUserById(@Param() id: string): Promise<UserInfoDto> {
+  public async getUserById(id: string): Promise<UserInfoDto> {
     try {
       const user = await this.prisma.user.findUnique({
         where: {
@@ -51,6 +51,25 @@ export class UserService {
     } catch (error) {
       console.log(
         '🚀 ~ file: user.service.ts:34 ~ UserService ~ getUserById ~ error:',
+        error,
+      );
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  public async checkHasUser(email: string): Promise<boolean> {
+    try {
+      const hasUserInSystem = await this.prisma.user.findUnique({
+        where: {
+          email,
+        },
+      });
+
+      if (!hasUserInSystem) return false;
+      return true;
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: user.service.ts:71 ~ UserService ~ checkHasUser ~ error:',
         error,
       );
       throw new InternalServerErrorException(error.message);
