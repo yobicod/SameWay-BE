@@ -11,4 +11,5 @@ export interface IUserService {
   createUser(createUserInput: CreateUserInfoDto): Promise<boolean>;
   updateUser(updateUserInput: UpdateUserInfoDto): Promise<boolean>;
   deleteUser(email: string): Promise<boolean>;
+  checkUser(email: string): Promise<boolean>;
 }
