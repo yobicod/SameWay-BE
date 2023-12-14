@@ -32,7 +32,7 @@ export class UserController implements IUserService {
   }
 
   @Get('has-user-in-system/:email')
-  async checkUser(@Param('email') email: string) {
+  async checkUser(@Param('email') email: string): Promise<boolean> {
     return await this.userService.checkHasUser(email);
   }
 
