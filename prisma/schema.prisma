@@ -7,37 +7,52 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model driver {
-  id              String     @id @default(uuid()) @db.Uuid
-  createdAt       DateTime?  @default(now())
-  updatedAt       DateTime?  @updatedAt
+model Driver {
+  id              String    @id @default(uuid()) @db.Uuid
+  createdAt       DateTime? @default(now())
+  updatedAt       DateTime? @updatedAt
   driverFirstName String?
   driverLastName  String?
-  plate           String?     @unique
+  plate           String?   @unique
   carType         String?
   sex             String?
   phoneNumber     String?
+
+  @@map("driver")
 }
 
-model user {
-  id              String     @id @default(uuid()) @db.Uuid
-  createdAt       DateTime?  @default(now())
-  updatedAt       DateTime?  @updatedAt
-  fullName        String
-  email           String     @unique
-  Role            String
+model User {
+  id        String    @id @default(uuid()) @db.Uuid
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  fullName  String
+  email     String    @unique
+  role      String
+
+  @@map("user")
 }
 
-model emergency {
-  id              Int        @id @default(autoincrement())
-  passengerName   String
-  driverName      String
-  message         String
+model Emergency {
+  id            Int    @id @default(autoincrement())
+  passengerName String
+  driverName    String
+  message       String
+
+  @@map("emergency")
 }
 
-model ratingScore {
-  id              Int       @id @default(autoincrement())
-  driverId        String    
-  ratingScore     Int      
-  createdAt       DateTime?  @default(now())
+model RatingScore {
+  id          Int       @id @default(autoincrement())
+  driverId    String
+  ratingScore Int
+  createdAt   DateTime? @default(now())
+
+  @@map("rating_score")
+}
+
+model EnumGender {
+  value       String  @id @unique
+  description String?
+
+  @@map("enum_genders")
 }
