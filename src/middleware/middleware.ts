@@ -1,20 +1,20 @@
-import { InternalServerErrorException } from '@nestjs/common';
+import { HttpStatus, InternalServerErrorException } from '@nestjs/common';
 import axios from 'axios';
 import { Request, Response, NextFunction } from 'express';
 
 export async function logger(req: Request, res: Response, next: NextFunction) {
   console.log(`Request...`);
-
   const token: string =
-    '229f4ab172ad48d56b318ceb030b1a6a7cc01cdb2425da767d81067604db4201%7C764fbfd48d2a7a0bfba622c9a815dd29b58cd53a26b694a1b0465f6024aff189';
+    'ya29.a0AfB_byC4jtaSEMEHWXJezYOxLT2-2rwoh2Ssin87EuvckIQruIfegK5FlKGnBh7aXFOt0h8q2MXEE4lvyLEnZb8txW2jSbQ8ujf-TfHEOhWzxK-ukFO5wnf5yD8ytkswFZIGTrVfMzRSXyzm07vQ-Yq9Er0Za3L3up3waCgYKAX0SARMSFQHGX2MiPQr4156W2t3otzTbZUHi_Q0171';
   try {
     const verifyToken = await axios.get(
       `https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${token}`,
     );
-    console.log(
-      '🚀 ~ file: middleware.ts:12 ~ logger ~ verifyToken:',
-      verifyToken,
-    );
+
+    if (verifyToken.status === HttpStatus.OK) {
+      next();
+    }
+    throw new InternalServerErrorException('Invalid access token');
   } catch (error) {
     console.log('🚀 ~ file: middleware.ts:12 ~ logger ~ error:', error);
     throw new InternalServerErrorException(
