@@ -26,9 +26,6 @@ export class CreateUserInfoDto {
 
   @IsEmail()
   email: string;
-
-  @IsString()
-  role: string;
 }
 
 export class UpdateUserInfoDto {
