@@ -6,6 +6,7 @@ import {
   UpdateUserInfoDto,
   UserInfoDto,
 } from './dto/user.dto';
+import { ROLE } from 'src/constants/constant';
 
 @Injectable()
 export class UserService {
@@ -79,6 +80,7 @@ export class UserService {
       await this.prisma.user.create({
         data: {
           ...createUserDriver,
+          role: ROLE.user,
         },
       });
       return true;

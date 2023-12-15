@@ -8,7 +8,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { DriverService } from './driver.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   CreateDriverInfoDto,
   DriverId,
@@ -19,6 +19,7 @@ import { IDriverServiceInterface } from './interfaces/driver.service.interface';
 import { RolesGuard } from '../guard/role.guard';
 
 @ApiTags('driver')
+@ApiBearerAuth()
 @Controller('driver')
 export class DriverController implements IDriverServiceInterface {
   constructor(private readonly driverService: DriverService) {}

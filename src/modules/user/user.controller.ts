@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   CreateUserInfoDto,
   EnumGendersDto,
@@ -18,6 +18,7 @@ import { UserService } from './user.service';
 import { IUserService } from './interfaces/user.service.interface';
 
 @ApiTags('user')
+@ApiBearerAuth()
 @Controller('user')
 export class UserController implements IUserService {
   constructor(private readonly userService: UserService) {}
