@@ -17,6 +17,8 @@ import {
 } from './dto/driver.dto';
 import { IDriverServiceInterface } from './interfaces/driver.service.interface';
 import { RolesGuard } from '../guard/role.guard';
+import { Roles } from '../guard/role.decorator';
+import { ROLE } from 'src/constants/enum';
 
 @ApiTags('driver')
 @ApiBearerAuth()
@@ -24,7 +26,6 @@ import { RolesGuard } from '../guard/role.guard';
 export class DriverController implements IDriverServiceInterface {
   constructor(private readonly driverService: DriverService) {}
   @Get()
-  @UseGuards(RolesGuard)
   async getAllDrivers(): Promise<DriverinfoDto[]> {
     const allDrivers = await this.driverService.getAllDrivers();
     return allDrivers;

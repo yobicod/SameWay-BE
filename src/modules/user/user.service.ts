@@ -6,7 +6,8 @@ import {
   UpdateUserInfoDto,
   UserInfoDto,
 } from './dto/user.dto';
-import { ROLE } from 'src/constants/constant';
+import { ROLE } from 'src/constants/enum';
+import { decrypt, encrypt } from 'src/global-function';
 
 @Injectable()
 export class UserService {
@@ -67,6 +68,33 @@ export class UserService {
     } catch (error) {
       console.log(
         '🚀 ~ file: user.service.ts:71 ~ UserService ~ checkHasUser ~ error:',
+        error,
+      );
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  public async getUserPermission(email: string): Promise<string> {
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: {
+          email,
+        },
+        select: {
+          role: true,
+        },
+      });
+      const en = encrypt(user.role);
+      console.log(
+        '🚀 ~ file: user.service.ts:88 ~ UserService ~ getUserPermission ~ en:',
+        en,
+      );
+      console.log('>>>>', decrypt(en));
+
+      return encrypt(user.role);
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: user.service.ts:80 ~ UserService ~ getUserPermission ~ error:',
         error,
       );
       throw new InternalServerErrorException(error.message);
