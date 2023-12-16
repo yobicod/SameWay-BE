@@ -6,6 +6,8 @@ import {
   UpdateUserInfoDto,
   UserInfoDto,
 } from './dto/user.dto';
+import { ROLE } from 'src/constants/enum';
+import { encrypt } from 'src/global-function';
 
 @Injectable()
 export class UserService {
@@ -72,6 +74,26 @@ export class UserService {
     }
   }
 
+  public async getUserPermission(email: string): Promise<string> {
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: {
+          email,
+        },
+        select: {
+          role: true,
+        },
+      });
+      return encrypt(user.role);
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: user.service.ts:80 ~ UserService ~ getUserPermission ~ error:',
+        error,
+      );
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
   public async createUser(
     createUserDriver: CreateUserInfoDto,
   ): Promise<boolean> {
@@ -79,6 +101,7 @@ export class UserService {
       await this.prisma.user.create({
         data: {
           ...createUserDriver,
+          role: ROLE.user,
         },
       });
       return true;

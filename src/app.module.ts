@@ -8,7 +8,7 @@ import { PrismaModule } from './modules/prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 import { UserModule } from './modules/user/user.module';
-import { logger } from './middleware/middleware';
+import { logger } from './modules/middleware/middleware';
 
 @Module({
   imports: [
