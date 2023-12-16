@@ -8,7 +8,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { DriverService } from './driver.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   CreateDriverInfoDto,
   DriverId,
@@ -17,13 +17,15 @@ import {
 } from './dto/driver.dto';
 import { IDriverServiceInterface } from './interfaces/driver.service.interface';
 import { RolesGuard } from '../guard/role.guard';
+import { Roles } from '../guard/role.decorator';
+import { ROLE } from 'src/constants/enum';
 
 @ApiTags('driver')
+@ApiBearerAuth()
 @Controller('driver')
 export class DriverController implements IDriverServiceInterface {
   constructor(private readonly driverService: DriverService) {}
   @Get()
-  @UseGuards(RolesGuard)
   async getAllDrivers(): Promise<DriverinfoDto[]> {
     const allDrivers = await this.driverService.getAllDrivers();
     return allDrivers;
