@@ -7,7 +7,7 @@ import {
   UserInfoDto,
 } from './dto/user.dto';
 import { ROLE } from 'src/constants/enum';
-import { decrypt, encrypt } from 'src/global-function';
+import { encrypt } from 'src/global-function';
 
 @Injectable()
 export class UserService {
@@ -84,13 +84,6 @@ export class UserService {
           role: true,
         },
       });
-      const en = encrypt(user.role);
-      console.log(
-        '🚀 ~ file: user.service.ts:88 ~ UserService ~ getUserPermission ~ en:',
-        en,
-      );
-      console.log('>>>>', decrypt(en));
-
       return encrypt(user.role);
     } catch (error) {
       console.log(
