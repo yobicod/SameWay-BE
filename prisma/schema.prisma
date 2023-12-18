@@ -41,17 +41,19 @@ model Emergency {
   @@map("emergency")
 }
 
-model RatingScore {
-  id          Int       @id @default(autoincrement())
-  driverId    String
-  ratingScore Int
-  createdAt   DateTime? @default(now())
-
-  @@map("rating_score")
-}
-
 model EnumGender {
   value       String  @id @unique
   description String?
+
   @@map("enum_genders")
+}
+
+model Feedback {
+  id          Int       @id @default(autoincrement())
+  driverId    String?
+  userId      String?
+  ratingScore Int?
+  description String? 
+  createdAt   DateTime? @default(now())
+  @@map("feedback")
 }
