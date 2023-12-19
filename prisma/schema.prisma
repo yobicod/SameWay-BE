@@ -19,7 +19,7 @@ model Driver {
   phoneNumber     String?  
   user            User?     @relation(fields: [userEmail], references: [email])
   userEmail       String?   @unique
-
+  
   @@map("driver")
 }
 
