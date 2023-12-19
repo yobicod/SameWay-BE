@@ -65,12 +65,12 @@ export class DriverService {
           id: updateDriverInput.id,
         },
         data: {
-          carType: updateDriverInput.carType && undefined,
-          driverFirstName: updateDriverInput.driverFirstName && undefined,
-          driverLastName: updateDriverInput.driverLastName && undefined,
-          phoneNumber: updateDriverInput.phoneNumber && undefined,
-          plate: updateDriverInput.plate && undefined,
-          sex: updateDriverInput.sex && undefined,
+          carType: updateDriverInput.carType || undefined,
+          driverFirstName: updateDriverInput.driverFirstName || undefined,
+          driverLastName: updateDriverInput.driverLastName || undefined,
+          phoneNumber: updateDriverInput.phoneNumber || undefined,
+          plate: updateDriverInput.plate || undefined,
+          sex: updateDriverInput.sex || undefined,
         },
       });
       return true;

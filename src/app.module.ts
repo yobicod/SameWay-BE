@@ -9,6 +9,8 @@ import { ConfigModule } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 import { UserModule } from './modules/user/user.module';
 import { logger } from './modules/middleware/middleware';
+import { FeedbackModule } from './modules/feedback/feedback.module';
+import { GatewayModule } from './modules/gateway/gateway.module';
 
 @Module({
   imports: [
@@ -20,9 +22,10 @@ import { logger } from './modules/middleware/middleware';
     DriverModule,
     PrismaModule,
     HttpModule,
+    FeedbackModule,
+    GatewayModule,
   ],
   controllers: [AppController],
-
   providers: [AppService],
 })
 export class AppModule implements NestModule {
