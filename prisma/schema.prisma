@@ -16,7 +16,9 @@ model Driver {
   plate           String?   @unique
   carType         String?
   sex             String?
-  phoneNumber     String?
+  phoneNumber     String?  
+  user            User?     @relation(fields: [userEmail], references: [email])
+  userEmail       String?   @unique
 
   @@map("driver")
 }
@@ -28,7 +30,7 @@ model User {
   fullName  String
   email     String    @unique
   role      String
-
+  driver    Driver?
   @@map("user")
 }
 
@@ -44,14 +46,14 @@ model Emergency {
 model EnumGender {
   value       String  @id @unique
   description String?
-
+  
   @@map("enum_genders")
 }
 
 model Feedback {
   id          Int       @id @default(autoincrement())
-  driverId    String?
-  userId      String?
+  driverEmail String?
+  userEmail   String?
   ratingScore Int?
   description String? 
   createdAt   DateTime? @default(now())

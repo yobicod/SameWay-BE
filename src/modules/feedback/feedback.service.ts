@@ -6,15 +6,47 @@ export class FeedbackService {
   constructor(private readonly prisma: PrismaService) {}
 
   public async getAllFeedBack(): Promise<any> {
-    return await this.prisma.feedback.findMany();
+    try {
+      return await this.prisma.feedback.findMany();
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: feedback.service.ts:12 ~ FeedbackService ~ getAllFeedBack ~ error:',
+        error,
+      );
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
   public async getFeedbackByUserEmail(email: string) {
-    return await this.prisma.feedback.findMany({
-      where: {
-        userId: email, // fix schema here
-      },
-    });
+    try {
+      return await this.prisma.feedback.findMany({
+        where: {
+          userEmail: email,
+        },
+      });
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: feedback.service.ts:23 ~ FeedbackService ~ getFeedbackByUserEmail ~ error:',
+        error,
+      );
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  public async getFeedbackByDriverEmai(driverEmail: string) {
+    try {
+      return await this.prisma.feedback.findMany({
+        where: {
+          driverEmail,
+        },
+      });
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: feedback.service.ts:40 ~ FeedbackService ~ getFeedbackByDriverEmai ~ error:',
+        error,
+      );
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
   public async createFeedBack(createFeedBackInput: any): Promise<boolean> {
