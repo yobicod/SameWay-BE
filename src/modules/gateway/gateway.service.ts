@@ -18,7 +18,7 @@ export class GatewayService implements OnModuleInit {
 
   onModuleInit() {
     this.server.on('connection', (socket) => {
-      console.log('Connectingto server... ⏰');
+      console.log('Connecting to server... ⏰');
       console.log(`Socket id: ${socket.id}`);
       console.log(`Connected ✅`);
     });
@@ -31,6 +31,7 @@ export class GatewayService implements OnModuleInit {
       '🚀 ~ file: gateway.service.ts:10 ~ GatewayService ~ onNewMessage ~ body:',
       body,
     );
+
     // push data to client
     const users = await this.userService.getAllUsers();
     this.server.emit('onMessage', users);
