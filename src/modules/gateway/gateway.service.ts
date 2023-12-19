@@ -25,12 +25,13 @@ export class GatewayService implements OnModuleInit {
   }
 
   @SubscribeMessage('incomingRequest')
+  // retreive body @MessageBody()
   async onNewMessage(@MessageBody() body: any) {
     console.log(
       '🚀 ~ file: gateway.service.ts:10 ~ GatewayService ~ onNewMessage ~ body:',
       body,
     );
-
+    // push data to client
     const users = await this.userService.getAllUsers();
     this.server.emit('onMessage', users);
   }
