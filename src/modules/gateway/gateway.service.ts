@@ -1,4 +1,4 @@
-import { Body, Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import {
   MessageBody,
   SubscribeMessage,
