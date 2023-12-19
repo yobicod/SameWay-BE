@@ -10,6 +10,7 @@ import { HttpModule } from '@nestjs/axios';
 import { UserModule } from './modules/user/user.module';
 import { logger } from './modules/middleware/middleware';
 import { FeedbackModule } from './modules/feedback/feedback.module';
+import { GatewayModule } from './modules/gateway/gateway.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { FeedbackModule } from './modules/feedback/feedback.module';
     PrismaModule,
     HttpModule,
     FeedbackModule,
+    GatewayModule,
   ],
   controllers: [AppController],
   providers: [AppService],
