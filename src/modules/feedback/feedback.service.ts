@@ -1,5 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { CreateFeedBackDto } from './dto/feedback.dto';
 
 @Injectable()
 export class FeedbackService {
@@ -33,6 +34,18 @@ export class FeedbackService {
     }
   }
 
+  public async getEnumProblems() {
+    try {
+      return await this.prisma.enumProblem.findMany();
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: feedback.service.ts:40 ~ FeedbackService ~ getEnumProblems ~ error:',
+        error,
+      );
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
   public async getFeedbackByDriverEmai(driverEmail: string) {
     try {
       return await this.prisma.feedback.findMany({
@@ -49,7 +62,9 @@ export class FeedbackService {
     }
   }
 
-  public async createFeedBack(createFeedBackInput: any): Promise<boolean> {
+  public async createFeedback(
+    createFeedBackInput: CreateFeedBackDto,
+  ): Promise<boolean> {
     try {
       await this.prisma.feedback.create({
         data: {

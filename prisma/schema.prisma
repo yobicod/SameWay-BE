@@ -19,7 +19,7 @@ model Driver {
   phoneNumber     String?  
   user            User?     @relation(fields: [userEmail], references: [email])
   userEmail       String?   @unique
-
+  
   @@map("driver")
 }
 
@@ -43,13 +43,6 @@ model Emergency {
   @@map("emergency")
 }
 
-model EnumGender {
-  value       String  @id @unique
-  description String?
-  
-  @@map("enum_genders")
-}
-
 model Feedback {
   id          Int       @id @default(autoincrement())
   driverEmail String?
@@ -59,4 +52,19 @@ model Feedback {
   createdAt   DateTime? @default(now())
   
   @@map("feedback")
+}
+
+model EnumGender {
+  value       String  @id @unique
+  description String?
+  
+  @@map("enum_genders")
+}
+
+
+model EnumProblem {
+  value       String @id @unique
+  description String?
+
+  @@map("enum_problems")
 }
