@@ -35,5 +35,8 @@ export class GatewayService implements OnModuleInit {
     // push data to client
     const users = await this.userService.getAllUsers();
     this.server.emit('onMessage', users);
+
+    // close socket connection
+    this.server.close();
   }
 }
