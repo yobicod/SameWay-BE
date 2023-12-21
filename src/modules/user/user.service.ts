@@ -8,13 +8,24 @@ import {
 } from './dto/user.dto';
 import { ROLE } from 'src/constants/enum';
 import { encrypt } from 'src/global-function';
-
+import { InjectRedis } from '@liaoliaots/nestjs-redis';
+import { Redis } from 'ioredis';
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    @InjectRedis() private readonly redis: Redis,
+  ) {}
+
   public async getAllUsers(): Promise<UserInfoDto[]> {
     try {
       const allUsers = await this.prisma.user.findMany();
+
+      const dataInRedis = await this.redis.get('test');
+      console.log(
+        '🚀 ~ file: user.service.ts:25 ~ UserService ~ getAllUsers ~ dataInRedis:',
+        dataInRedis,
+      );
       return allUsers;
     } catch (error) {
       console.log(
