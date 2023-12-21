@@ -11,11 +11,19 @@ import { UserModule } from './modules/user/user.module';
 import { logger } from './modules/middleware/middleware';
 import { FeedbackModule } from './modules/feedback/feedback.module';
 import { GatewayModule } from './modules/gateway/gateway.module';
+import { RedisModule } from '@liaoliaots/nestjs-redis';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    RedisModule.forRoot({
+      config: {
+        host: process.env.REDIS_HOST,
+        port: parseInt(process.env.REDIS_PORT),
+        // password: 'xxxx',
+      },
     }),
     NotifyModule,
     UserModule,
