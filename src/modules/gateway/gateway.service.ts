@@ -4,8 +4,9 @@ import {
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
+  ConnectedSocket,
 } from '@nestjs/websockets';
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import { UserService } from '../user/user.service';
 
 @WebSocketGateway()
@@ -24,19 +25,29 @@ export class GatewayService implements OnModuleInit {
     });
   }
 
-  @SubscribeMessage('incomingRequest')
-  // retreive body @MessageBody()
-  async onNewMessage(@MessageBody() body: any) {
-    console.log(
-      '🚀 ~ file: gateway.service.ts:10 ~ GatewayService ~ onNewMessage ~ body:',
-      body,
-    );
+  @SubscribeMessage('')
+  async onNewMessage(
+    @MessageBody() body: any,
+    @ConnectedSocket() socket: Socket,
+  ) {
+    console.log('Received message:', body);
 
-    // push data to client
-    const users = await this.userService.getAllUsers();
-    this.server.emit('onMessage', users);
+    try {
+      const users = await this.userService.getAllUsers();
+      console.log(
+        '🚀 ~ file: gateway.service.ts:38 ~ GatewayService ~ users:',
+        users,
+      );
 
-    // close socket connection
-    this.server.close();
+      if (users.length !== 0) {
+        this.server.emit('onMessage', users);
+        socket.disconnect();
+      }
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      socket.emit('onMessage', error);
+    }
   }
+
+  // Other event handlers...
 }
