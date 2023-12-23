@@ -1,14 +1,14 @@
 INSERT INTO enum_genders (value, description)
 VALUES 
-  ('Male', ''),
-  ('Female', ''),
-  ('Other', '');
+  ('ชาย', ''),
+  ('หญิง', ''),
+  ('อื่นๆ', '');
 
 INSERT INTO enum_problems (value, description)
 VALUES 
-  ('Car accident', ''),
-  ('Traffic violation', ''),
-  ('Illegal actions', ''),
-  ('Various violations', ''),
-  ('Illegal delivery', '');
+  ('อุบัติเหตุทางรถยนต์', ''),
+  ('การละเมิดกฎจราจร', ''),
+  ('การกระทำที่ผิดกฎหมาย', ''),
+  ('การละเมิดต่างๆ', ''),
+  ('การขนส่งของผิดกฎหมาย', '');
   
