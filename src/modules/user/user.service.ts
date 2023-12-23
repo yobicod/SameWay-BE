@@ -14,18 +14,18 @@ import { Redis } from 'ioredis';
 export class UserService {
   constructor(
     private readonly prisma: PrismaService,
-    @InjectRedis() private readonly redis: Redis,
+    // @InjectRedis() private readonly redis: Redis,
   ) {}
 
   public async getAllUsers(): Promise<UserInfoDto[]> {
     try {
       const allUsers = await this.prisma.user.findMany();
 
-      const dataInRedis = await this.redis.get('test');
-      console.log(
-        '🚀 ~ file: user.service.ts:25 ~ UserService ~ getAllUsers ~ dataInRedis:',
-        dataInRedis,
-      );
+      // const dataInRedis = await this.redis.get('test');
+      // console.log(
+      //   '🚀 ~ file: user.service.ts:25 ~ UserService ~ getAllUsers ~ dataInRedis:',
+      //   dataInRedis,
+      // );
       return allUsers;
     } catch (error) {
       console.log(
