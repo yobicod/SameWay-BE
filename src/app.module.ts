@@ -18,13 +18,13 @@ import { RedisModule } from '@liaoliaots/nestjs-redis';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    RedisModule.forRoot({
-      config: {
-        host: process.env.REDIS_HOST,
-        port: parseInt(process.env.REDIS_PORT),
-        // password: 'xxxx',
-      },
-    }),
+    // RedisModule.forRoot({
+    //   config: {
+    //     host: process.env.REDIS_HOST,
+    //     port: parseInt(process.env.REDIS_PORT),
+    //     // password: 'xxxx',
+    //   },
+    // }),
     NotifyModule,
     UserModule,
     DriverModule,
