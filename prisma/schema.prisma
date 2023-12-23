@@ -16,10 +16,10 @@ model Driver {
   plate           String?   @unique
   carType         String?
   sex             String?
-  phoneNumber     String?  
+  phoneNumber     String?
   user            User?     @relation(fields: [userEmail], references: [email])
   userEmail       String?   @unique
-  
+
   @@map("driver")
 }
 
@@ -31,6 +31,7 @@ model User {
   email     String    @unique
   role      String
   driver    Driver?
+
   @@map("user")
 }
 
@@ -48,22 +49,40 @@ model Feedback {
   driverEmail String?
   userEmail   String?
   ratingScore Int?
-  description String? 
+  description String?
   createdAt   DateTime? @default(now())
-  
+
   @@map("feedback")
+}
+
+model Report {
+  id          Int         @id @default(autoincrement())
+  driverEmail String
+  userEmail   String
+  problemType String
+  description String
+  ReportFile  ReportFile?
+
+  @@map("report")
+}
+
+model ReportFile {
+  id       Int    @id @default(autoincrement())
+  report   Report @relation(fields: [reportId], references: [id])
+  reportId Int    @unique
+  fileUrl  String
+  @@map("report_file")
 }
 
 model EnumGender {
   value       String  @id @unique
   description String?
-  
+
   @@map("enum_genders")
 }
 
-
 model EnumProblem {
-  value       String @id @unique
+  value       String  @id @unique
   description String?
 
   @@map("enum_problems")
