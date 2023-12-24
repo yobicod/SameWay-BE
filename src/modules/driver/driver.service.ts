@@ -22,6 +22,24 @@ export class DriverService {
     }
   }
 
+  public async checkIsDriverInSystem(email: string): Promise<boolean> {
+    try {
+      const driver = await this.prisma.driver.findUnique({
+        where: {
+          userEmail: email,
+        },
+      });
+      if (!driver) return false;
+      return true;
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: driver.service.ts:29 ~ DriverService ~ checkIsDriverInSystem ~ error:',
+        error,
+      );
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
   public async createDriver(
     createDriverInput: CreateDriverInfoDto,
   ): Promise<boolean> {

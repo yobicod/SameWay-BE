@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Patch,
   Post,
   Query,
@@ -28,6 +29,13 @@ export class DriverController implements IDriverServiceInterface {
   async getAllDrivers(): Promise<DriverinfoDto[]> {
     const allDrivers = await this.driverService.getAllDrivers();
     return allDrivers;
+  }
+
+  @Get('is-driver-in-system/:email')
+  async checkDriverInSystem(@Param('email') email: string): Promise<boolean> {
+    const isDriverInSystem =
+      await this.driverService.checkIsDriverInSystem(email);
+    return isDriverInSystem;
   }
 
   @Post('create')
