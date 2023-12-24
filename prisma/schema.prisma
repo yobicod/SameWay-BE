@@ -11,8 +11,7 @@ model Driver {
   id              String    @id @default(uuid()) @db.Uuid
   createdAt       DateTime? @default(now())
   updatedAt       DateTime? @updatedAt
-  driverFirstName String?
-  driverLastName  String?
+  fullName        String? 
   plate           String?   @unique
   carType         String?
   sex             String?

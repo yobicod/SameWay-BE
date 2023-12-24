@@ -11,7 +11,6 @@ import { DriverService } from './driver.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   CreateDriverInfoDto,
-  DriverId,
   DriverinfoDto,
   UpdateDriverInfoDto,
 } from './dto/driver.dto';
@@ -30,13 +29,7 @@ export class DriverController implements IDriverServiceInterface {
     const allDrivers = await this.driverService.getAllDrivers();
     return allDrivers;
   }
-  @Get('get-driver-by-id')
-  async getDriver(
-    @Query() queryParamsDriverId: DriverId,
-  ): Promise<DriverinfoDto> {
-    const driver = await this.driverService.getDriver(queryParamsDriverId.id);
-    return driver;
-  }
+
   @Post('create')
   async createDriver(
     @Body()
