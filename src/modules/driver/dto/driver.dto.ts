@@ -1,14 +1,11 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsOptional, IsString } from 'class-validator';
 
 export class DriverinfoDto {
   @IsString()
   id: string;
 
   @IsString()
-  driverFirstName: string;
-
-  @IsString()
-  driverLastName: string;
+  fullName: string;
 
   @IsString()
   plate: string;
@@ -21,19 +18,19 @@ export class DriverinfoDto {
 
   @IsString()
   phoneNumber: string;
+
+  @IsEmail()
+  userEmail: string;
 }
 
 export class UpdateDriverInfoDto {
-  @IsString()
-  id: string;
+  @IsEmail()
+  @IsOptional()
+  email?: string;
 
   @IsString()
   @IsOptional()
-  driverFirstName?: string;
-
-  @IsString()
-  @IsOptional()
-  driverLastName?: string;
+  fullName?: string;
 
   @IsString()
   @IsOptional()
@@ -52,30 +49,21 @@ export class UpdateDriverInfoDto {
   phoneNumber?: string;
 }
 export class CreateDriverInfoDto {
-  @IsString()
-  @IsOptional()
-  driverFirstName?: string;
+  @IsEmail()
+  userEmail: string;
 
   @IsString()
-  @IsOptional()
-  driverLastName?: string;
+  fullName: string;
 
   @IsString()
-  plate?: string;
+  plate: string;
 
   @IsString()
-  carType?: string;
+  carType: string;
 
   @IsString()
-  @IsOptional()
-  sex?: string;
+  sex: string;
 
   @IsString()
-  @IsOptional()
-  phoneNumber?: string;
-}
-
-export class DriverId {
-  @IsString()
-  id: string;
+  phoneNumber: string;
 }
