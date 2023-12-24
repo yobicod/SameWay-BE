@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Patch,
   Post,
   Query,
@@ -10,6 +11,7 @@ import {
 import { DriverService } from './driver.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
+  CheckDriverInSystemDto,
   CreateDriverInfoDto,
   DriverinfoDto,
   UpdateDriverInfoDto,
@@ -28,6 +30,13 @@ export class DriverController implements IDriverServiceInterface {
   async getAllDrivers(): Promise<DriverinfoDto[]> {
     const allDrivers = await this.driverService.getAllDrivers();
     return allDrivers;
+  }
+
+  @Get('is-driver-in-system/:email')
+  async checkDriverInSystem(@Param('email') email: string): Promise<boolean> {
+    const isDriverInSystem =
+      await this.driverService.checkIsDriverInSystem(email);
+    return isDriverInSystem;
   }
 
   @Post('create')
