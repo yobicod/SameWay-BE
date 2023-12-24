@@ -11,7 +11,6 @@ import {
 import { DriverService } from './driver.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
-  CheckDriverInSystemDto,
   CreateDriverInfoDto,
   DriverinfoDto,
   UpdateDriverInfoDto,

@@ -67,8 +67,3 @@ export class CreateDriverInfoDto {
   @IsString()
   phoneNumber: string;
 }
-
-export class CheckDriverInSystemDto {
-  @IsEmail()
-  email: string;
-}
