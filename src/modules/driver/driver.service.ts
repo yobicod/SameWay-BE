@@ -22,23 +22,6 @@ export class DriverService {
     }
   }
 
-  public async getDriver(driverId: string): Promise<DriverinfoDto> {
-    try {
-      const driver = await this.prisma.driver.findUnique({
-        where: {
-          id: driverId,
-        },
-      });
-      return driver;
-    } catch (error) {
-      console.log(
-        '🚀 ~ file: driver.service.ts:26 ~ DriverService ~ getDriver ~ error:',
-        error,
-      );
-      throw new InternalServerErrorException(error.message);
-    }
-  }
-
   public async createDriver(
     createDriverInput: CreateDriverInfoDto,
   ): Promise<boolean> {
@@ -62,12 +45,11 @@ export class DriverService {
     try {
       await this.prisma.driver.update({
         where: {
-          id: updateDriverInput.id,
+          userEmail: updateDriverInput.email,
         },
         data: {
           carType: updateDriverInput.carType || undefined,
-          driverFirstName: updateDriverInput.driverFirstName || undefined,
-          driverLastName: updateDriverInput.driverLastName || undefined,
+          fullName: updateDriverInput.fullName || undefined,
           phoneNumber: updateDriverInput.phoneNumber || undefined,
           plate: updateDriverInput.plate || undefined,
           sex: updateDriverInput.sex || undefined,
