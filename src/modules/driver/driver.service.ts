@@ -24,9 +24,16 @@ export class DriverService {
 
   public async checkIsDriverInSystem(email: string): Promise<boolean> {
     try {
-      const driver = await this.prisma.driver.findUnique({
+      const driver = await this.prisma.driver.findFirst({
         where: {
-          userEmail: email,
+          OR: [
+            {
+              userEmail: email + '@kmitl.ac.th',
+            },
+            {
+              userEmail: email + '@gmail.com',
+            },
+          ],
         },
       });
       if (!driver) return false;
