@@ -32,7 +32,7 @@ export class DriverController implements IDriverServiceInterface {
   }
 
   @Get('is-driver-in-system/:email')
-  async checkDriverInSystem(@Param('email') email: string): Promise<boolean> {
+  async checkIsDriverInSystem(@Param('email') email: string): Promise<boolean> {
     const isDriverInSystem =
       await this.driverService.checkIsDriverInSystem(email);
     return isDriverInSystem;
