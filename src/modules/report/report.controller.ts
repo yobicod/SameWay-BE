@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Post,
@@ -8,6 +9,7 @@ import {
 import { ReportService } from './report.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
+import { CreateReportDto } from './interfaces/report.dto';
 
 @ApiTags('report')
 @Controller('report')
@@ -20,15 +22,9 @@ export class ReportController {
   }
 
   @Post('create')
-  @UseInterceptors(FileInterceptor('file'))
   async createReport(
-    createReportInput: any,
-    @UploadedFile() file: Express.Multer.File,
+    @Body() createReportInput: CreateReportDto,
   ): Promise<boolean> {
-    console.log(
-      '🚀 ~ file: report.controller.ts:26 ~ ReportController ~ file:',
-      file,
-    );
     return await this.reportService.createReport(createReportInput);
   }
 
