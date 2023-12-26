@@ -11,8 +11,8 @@ import { UserModule } from './modules/user/user.module';
 import { logger } from './middleware/middleware';
 import { FeedbackModule } from './modules/feedback/feedback.module';
 import { GatewayModule } from './modules/gateway/gateway.module';
+import { ReportModule } from './modules/report/report.module';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -32,6 +32,7 @@ import { RedisModule } from '@liaoliaots/nestjs-redis';
     HttpModule,
     FeedbackModule,
     GatewayModule,
+    ReportModule,
   ],
   controllers: [AppController],
   providers: [AppService],
