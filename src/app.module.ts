@@ -2,7 +2,6 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { NotifyModule } from './modules/notify/notify.module';
-
 import { DriverModule } from './modules/driver/driver.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
@@ -18,13 +17,13 @@ import { RedisModule } from '@liaoliaots/nestjs-redis';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    // RedisModule.forRoot({
-    //   config: {
-    //     host: process.env.REDIS_HOST,
-    //     port: parseInt(process.env.REDIS_PORT),
-    //     // password: 'xxxx',
-    //   },
-    // }),
+    RedisModule.forRoot({
+      config: {
+        host: process.env.REDIS_HOST,
+        port: parseInt(process.env.REDIS_PORT),
+        // password: 'xxxx',
+      },
+    }),
     NotifyModule,
     UserModule,
     DriverModule,
