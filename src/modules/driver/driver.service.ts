@@ -77,7 +77,7 @@ export class DriverService {
           fullName: updateDriverInput.fullName || undefined,
           phoneNumber: updateDriverInput.phoneNumber || undefined,
           plate: updateDriverInput.plate || undefined,
-          sex: updateDriverInput.sex || undefined,
+          gender: updateDriverInput.gender || undefined,
         },
       });
       return true;

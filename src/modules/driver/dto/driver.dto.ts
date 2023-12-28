@@ -14,7 +14,7 @@ export class DriverinfoDto {
   carType: string;
 
   @IsString()
-  sex: string;
+  gender: string;
 
   @IsString()
   phoneNumber: string;
@@ -42,7 +42,7 @@ export class UpdateDriverInfoDto {
 
   @IsString()
   @IsOptional()
-  sex?: string;
+  gender?: string;
 
   @IsString()
   @IsOptional()
@@ -62,7 +62,7 @@ export class CreateDriverInfoDto {
   carType: string;
 
   @IsString()
-  sex: string;
+  gender: string;
 
   @IsString()
   phoneNumber: string;
