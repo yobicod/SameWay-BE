@@ -1,5 +1,69 @@
-import { IsEmail, IsNumber, IsString } from 'class-validator';
+import { IsDate, IsEmail, IsNumber, IsString } from 'class-validator';
 
+export class BookingDto {
+  @IsString()
+  userFullName: string;
+
+  @IsEmail()
+  userEmail: string;
+
+  @IsString()
+  userStart: string;
+
+  @IsString()
+  userDestination: string;
+
+  @IsNumber()
+  userLat: number;
+
+  @IsNumber()
+  userLong: number;
+
+  @IsDate()
+  userCreateAt: Date;
+
+  @IsString()
+  driverFullName: string;
+
+  @IsEmail()
+  driverEmail: string;
+
+  @IsString()
+  driverStart: string;
+
+  @IsString()
+  driverDestination: string;
+
+  @IsNumber()
+  driverLat: number;
+
+  @IsNumber()
+  driverLong: number;
+
+  @IsDate()
+  driverCreateAt: Date;
+
+  @IsString()
+  driverGender: string;
+
+  @IsString()
+  deliverType: string;
+
+  @IsDate()
+  createdAt: Date;
+
+  @IsDate()
+  updatedAt: Date;
+
+  @IsString()
+  carType: string;
+
+  @IsNumber()
+  capacity: number;
+
+  @IsString()
+  plate: string;
+}
 export class CreateBookingDto {
   @IsString()
   userFullName: string;
@@ -13,12 +77,14 @@ export class CreateBookingDto {
   @IsString()
   userDestination: string;
 
+  @IsNumber()
   userLat: number;
 
+  @IsNumber()
   userLong: number;
 
   @IsString()
-  userCreateAt: string;
+  userCreateAt: Date;
 
   @IsString()
   driverFullName: string;
@@ -39,7 +105,7 @@ export class CreateBookingDto {
   driverLong: number;
 
   @IsString()
-  driverCreateAt: string;
+  driverCreateAt: Date;
 
   @IsString()
   driverGender: string;
@@ -48,16 +114,16 @@ export class CreateBookingDto {
   deliverType: string;
 
   @IsString()
-  createdAt: string;
+  createdAt: Date;
 
   @IsString()
-  updatedAt: string;
+  updatedAt: Date;
 
   @IsString()
   carType: string;
 
   @IsNumber()
-  capacity: string;
+  capacity: number;
 
   @IsString()
   plate: string;
