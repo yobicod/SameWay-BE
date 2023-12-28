@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { BookingService } from './booking.service';
+import { CreateBookingDto } from './dto/booking.dto';
 @ApiTags('booking')
 @Controller('booking')
 export class BookingController {
@@ -16,7 +17,7 @@ export class BookingController {
   }
 
   @Post('create')
-  async createBooking(@Body() createBookingInput: any) {
+  async createBooking(@Body() createBookingInput: CreateBookingDto) {
     return this.bookingService.createBooking(createBookingInput);
   }
 
