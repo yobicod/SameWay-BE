@@ -14,7 +14,7 @@ import { Server, Socket } from 'socket.io';
 import { UserService } from '../user/user.service';
 import { Redis } from 'ioredis';
 import { InjectRedis } from '@liaoliaots/nestjs-redis';
-import { findCircleIntersection } from 'src/global-function/circular-intersect';
+import { findCircleIntersection } from 'src/global-function';
 
 @WebSocketGateway({
   cors: {
