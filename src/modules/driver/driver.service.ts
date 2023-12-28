@@ -5,6 +5,7 @@ import {
   DriverinfoDto,
   UpdateDriverInfoDto,
 } from './dto/driver.dto';
+import { Domain } from 'src/constants/enum';
 
 @Injectable()
 export class DriverService {
@@ -28,10 +29,10 @@ export class DriverService {
         where: {
           OR: [
             {
-              userEmail: email + '@kmitl.ac.th',
+              userEmail: email + Domain.kmitl,
             },
             {
-              userEmail: email + '@gmail.com',
+              userEmail: email + Domain.google,
             },
           ],
         },
@@ -77,7 +78,7 @@ export class DriverService {
           fullName: updateDriverInput.fullName || undefined,
           phoneNumber: updateDriverInput.phoneNumber || undefined,
           plate: updateDriverInput.plate || undefined,
-          sex: updateDriverInput.sex || undefined,
+          gender: updateDriverInput.gender || undefined,
         },
       });
       return true;
