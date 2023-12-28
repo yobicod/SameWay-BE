@@ -1,4 +1,8 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  OnModuleInit,
+} from '@nestjs/common';
 import {
   MessageBody,
   SubscribeMessage,
@@ -62,29 +66,34 @@ export class GatewayService implements OnModuleInit {
     }
   }
 
-  @SubscribeMessage('openDriver')
-  async openDriver(
+  @SubscribeMessage('waitForPassenger')
+  async waitForPassenger(
     @MessageBody() body: any,
     @ConnectedSocket() socket: Socket,
   ) {
     try {
       const data = body;
       data.socketId = socket.id;
+
       const driversInRedis = JSON.parse(await this.redis.get('DriverOpen'));
       driversInRedis.push(data);
+
       await this.redis.set('DriverOpen', JSON.stringify(driversInRedis));
+
       const specificSocketId = socket.id;
       const specificSocketInstance =
         await this.server.sockets.sockets.get(specificSocketId);
+
       specificSocketInstance.emit(
         'driverStatus',
-        'Driver status open...' + socket.id,
+        'status: finding passenger... with socketId:' + socket.id,
       );
     } catch (error) {
       console.log(
         '🚀 ~ file: gateway.service.ts:61 ~ GatewayService ~ error:',
         error,
       );
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -131,14 +140,12 @@ export class GatewayService implements OnModuleInit {
       selectedDriver,
     );
 
-    const driverSocketInstance = this.server.sockets.sockets.get(
-      selectedDriver.socketId,
-    );
+    const driverSocketInstance = this.server.sockets.sockets.get(socket.id);
 
     setTimeout(() => {
       driverSocketInstance.emit(
         'waitingForDriver',
-        'Finally find passenger... by' + socket.id,
+        'Finally find driver... with socketId: ' + socket.id,
       );
     }, 5000);
   }
@@ -147,6 +154,6 @@ export class GatewayService implements OnModuleInit {
   async test(@MessageBody() body: any, @ConnectedSocket() socket: Socket) {
     console.log(body);
     const socketInstance = this.server.sockets.sockets.get(socket.id);
-    socketInstance.emit('customEvent', 'msg from server...{}');
+    socketInstance.emit('customEvent', 'Msg from server...📊');
   }
 }
