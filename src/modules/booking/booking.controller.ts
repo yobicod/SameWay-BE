@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('booking')
 @Controller('booking')
 export class BookingController {
   @Get()
