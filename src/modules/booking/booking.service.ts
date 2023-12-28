@@ -2,9 +2,11 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import e from 'express';
 import { HttpStatusCode } from 'axios';
+import { Domain } from 'src/constants/enum';
+import { IBookingService } from './interfaces/booking.service.interface';
 
 @Injectable()
-export class BookingService {
+export class BookingService implements IBookingService {
   constructor(private readonly prisma: PrismaService) {}
   public async getAllBooking(): Promise<any> {
     try {
@@ -25,7 +27,14 @@ export class BookingService {
     try {
       const specificBooking = await this.prisma.booking.findMany({
         where: {
-          userEmail: email,
+          OR: [
+            {
+              userEmail: (email += Domain.kmitl),
+            },
+            {
+              userEmail: (email += Domain.google),
+            },
+          ],
         },
       });
       if (specificBooking) {
