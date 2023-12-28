@@ -1,14 +1,15 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import e from 'express';
+
 import { HttpStatusCode } from 'axios';
 import { Domain } from 'src/constants/enum';
 import { IBookingService } from './interfaces/booking.service.interface';
+import { BookingDto } from './dto/booking.dto';
 
 @Injectable()
 export class BookingService implements IBookingService {
   constructor(private readonly prisma: PrismaService) {}
-  public async getAllBooking(): Promise<any> {
+  public async getAllBooking(): Promise<BookingDto[]> {
     try {
       const booking = await this.prisma.booking.findMany();
       if (booking) {
