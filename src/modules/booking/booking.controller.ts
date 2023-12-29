@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { BookingService } from './booking.service';
-import { BookingDto, CreateBookingDto } from './dto/booking.dto';
+import { BookingDto, CreateBookingDto, GetBookingDto } from './dto/booking.dto';
 @ApiTags('booking')
 @Controller('booking')
 export class BookingController {
@@ -14,7 +14,7 @@ export class BookingController {
   @Get('get-booking-by-user-email/:email')
   async getBookingByUserEmail(
     @Param('email') email: string,
-  ): Promise<BookingDto[]> {
+  ): Promise<GetBookingDto> {
     return this.bookingService.getBookingByUserEmail(email);
   }
 

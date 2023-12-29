@@ -52,6 +52,7 @@ model Booking {
   driverCreateAt    DateTime
   driverGender      String
   deliverType       String
+  price Int
   createdAt         DateTime @default(now())
   updatedAt         DateTime @default(now())
   carType           String

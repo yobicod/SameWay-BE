@@ -64,6 +64,11 @@ export class BookingDto {
   @IsString()
   plate: string;
 }
+
+export class GetBookingDto {
+  user: BookingDto[];
+  driver: BookingDto[];
+}
 export class CreateBookingDto {
   @IsString()
   userFullName: string;
@@ -112,6 +117,9 @@ export class CreateBookingDto {
 
   @IsString()
   deliverType: string;
+
+  @IsNumber()
+  price: number;
 
   @IsString()
   createdAt: Date;
