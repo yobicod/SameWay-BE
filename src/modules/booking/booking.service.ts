@@ -4,7 +4,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { HttpStatusCode } from 'axios';
 import { Domain } from 'src/constants/enum';
 import { IBookingService } from './interfaces/booking.service.interface';
-import { BookingDto } from './dto/booking.dto';
+import { BookingDto, GetBookingDto } from './dto/booking.dto';
 
 @Injectable()
 export class BookingService implements IBookingService {
@@ -24,22 +24,41 @@ export class BookingService implements IBookingService {
     }
   }
 
-  public async getBookingByUserEmail(email: string): Promise<any> {
+  public async getBookingByUserEmail(email: string): Promise<GetBookingDto> {
+    const domainKmitl = (email += Domain.kmitl);
+    const domainGoogle = (email += Domain.google);
     try {
-      const specificBooking = await this.prisma.booking.findMany({
+      const userSpecificBooking = await this.prisma.booking.findMany({
         where: {
           OR: [
             {
-              userEmail: (email += Domain.kmitl),
+              userEmail: domainKmitl,
             },
             {
-              userEmail: (email += Domain.google),
+              userEmail: domainGoogle,
             },
           ],
         },
       });
-      if (specificBooking) {
-        return specificBooking;
+
+      const driverSpecificBooking = await this.prisma.booking.findMany({
+        where: {
+          OR: [
+            {
+              driverEmail: domainKmitl,
+            },
+            {
+              driverEmail: domainGoogle,
+            },
+          ],
+        },
+      });
+
+      if (userSpecificBooking && driverSpecificBooking) {
+        return {
+          user: userSpecificBooking,
+          driver: driverSpecificBooking,
+        };
       }
     } catch (error) {
       console.log(
