@@ -8,16 +8,16 @@ datasource db {
 }
 
 model Driver {
-  id              String    @id @default(uuid()) @db.Uuid
-  createdAt       DateTime? @default(now())
-  updatedAt       DateTime? @updatedAt
-  fullName        String? 
-  plate           String?   @unique
-  carType         String?
-  sex             String?
-  phoneNumber     String?
-  user            User?     @relation(fields: [userEmail], references: [email])
-  userEmail       String?   @unique
+  id          String    @id @default(uuid()) @db.Uuid
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  plate       String?   @unique
+  carType     String?
+  phoneNumber String?
+  userEmail   String?   @unique
+  fullName    String?
+  gender      String?
+  user        User?     @relation(fields: [userEmail], references: [email])
 
   @@map("driver")
 }
@@ -34,6 +34,34 @@ model User {
   @@map("user")
 }
 
+model Booking {
+  id                Int      @id @default(autoincrement())
+  userFullName      String
+  userEmail         String
+  userStart         String
+  userDestination   String
+  userLat           Int
+  userLong          Float
+  userCreateAt      DateTime
+  driverFullName    String
+  driverEmail       String
+  driverStart       String
+  driverDestination String
+  driverLat         Int
+  driverLong        Float
+  driverCreateAt    DateTime
+  driverGender      String
+  deliverType       String
+  price Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now())
+  carType           String
+  plate             String
+  capacity          Int
+
+  @@map("booking")
+}
+
 model Emergency {
   id            Int    @id @default(autoincrement())
   passengerName String
@@ -45,11 +73,11 @@ model Emergency {
 
 model Feedback {
   id          Int       @id @default(autoincrement())
-  driverEmail String?
-  userEmail   String?
   ratingScore Int?
   description String?
   createdAt   DateTime? @default(now())
+  driverEmail String?
+  userEmail   String?
 
   @@map("feedback")
 }
@@ -67,9 +95,10 @@ model Report {
 
 model ReportFile {
   id       Int    @id @default(autoincrement())
-  report   Report @relation(fields: [reportId], references: [id])
   reportId Int    @unique
   fileUrl  String
+  report   Report @relation(fields: [reportId], references: [id])
+
   @@map("report_file")
 }
 

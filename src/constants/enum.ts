@@ -3,3 +3,8 @@ export enum ROLE {
   driver = 'driver',
   admin = 'admin',
 }
+
+export enum Domain {
+  kmitl = '@kmitl.ac.th',
+  google = '@gmail.com',
+}
