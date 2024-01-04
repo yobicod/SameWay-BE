@@ -23,14 +23,11 @@ export class NotifyService implements INotifyService {
 
       const url = 'http://maps.google.com/maps?z=8&t=m&q=loc:38.9419+-78.3020';
 
-      const tinyUrl = await axios.get(
-        `http://tinyurl.com/api-create.php?url=${url}`,
-        {
-          params: {
-            muteHttpExceptions: true,
-          },
+      const tinyUrl = await axios.get(`${process.env.TINY_URL}${url}`, {
+        params: {
+          muteHttpExceptions: true,
         },
-      );
+      });
 
       const shorterUrl = tinyUrl.data;
       await lineNotify.notify({
