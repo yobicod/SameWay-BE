@@ -117,3 +117,10 @@ model EnumProblem {
 
   @@map("enum_problems")
 }
+
+model EnumCarType {
+  value       String  @id @unique
+  description String?
+
+  @@map("enum_car_types")
+}
