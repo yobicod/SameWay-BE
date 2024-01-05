@@ -6,9 +6,10 @@ import {
   UpdateDriverInfoDto,
 } from './dto/driver.dto';
 import { Domain } from 'src/constants/enum';
+import { IDriverServiceInterface } from './interfaces/driver.service.interface';
 
 @Injectable()
-export class DriverService {
+export class DriverService implements IDriverServiceInterface {
   constructor(private readonly prisma: PrismaService) {}
   public async getAllDrivers(): Promise<DriverinfoDto[]> {
     try {
@@ -19,6 +20,39 @@ export class DriverService {
         '🚀 ~ file: driver.service.ts:13 ~ DriverService ~ getAllDrivers ~ error:',
         error,
       );
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  public async getDriverInfoByUserEmail(email: string): Promise<DriverinfoDto> {
+    const kmitlDomain = (email += Domain.kmitl);
+    const googleDomain = (email += Domain.google);
+    try {
+      const driverInfo = await this.prisma.driver.findFirst({
+        where: {
+          OR: [
+            {
+              userEmail: kmitlDomain,
+            },
+            {
+              userEmail: googleDomain,
+            },
+          ],
+        },
+      });
+      if (driverInfo) {
+        return driverInfo;
+      } else {
+        throw new InternalServerErrorException(
+          'This user is not driver in system',
+        );
+      }
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: driver.service.ts:30 ~ DriverService ~ getDriverInfoByUserEmail ~ error:',
+        error,
+      );
+
       throw new InternalServerErrorException(error.message);
     }
   }
@@ -47,6 +81,8 @@ export class DriverService {
       throw new InternalServerErrorException(error.message);
     }
   }
+
+  p;
 
   public async createDriver(
     createDriverInput: CreateDriverInfoDto,
