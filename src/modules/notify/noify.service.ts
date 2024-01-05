@@ -21,6 +21,7 @@ export class NotifyService implements INotifyService {
         this.configService.get('LINE_NOTIFY_TEST_TOKEN'),
       );
 
+      // mock url based on req body lat lng
       const url = 'http://maps.google.com/maps?z=8&t=m&q=loc:13.7024+100.6985';
 
       const tinyUrl = await axios.get(`${process.env.TINY_URL}${url}`, {

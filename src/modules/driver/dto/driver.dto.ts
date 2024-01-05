@@ -67,3 +67,10 @@ export class CreateDriverInfoDto {
   @IsString()
   phoneNumber: string;
 }
+
+export class EnumCarTypesDto {
+  @IsString()
+  value: string;
+  @IsString()
+  description: string;
+}

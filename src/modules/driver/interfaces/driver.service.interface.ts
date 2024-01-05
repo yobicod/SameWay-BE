@@ -1,6 +1,7 @@
 import {
   CreateDriverInfoDto,
   DriverinfoDto,
+  EnumCarTypesDto,
   UpdateDriverInfoDto,
 } from '../dto/driver.dto';
 
@@ -10,4 +11,5 @@ export interface IDriverServiceInterface {
   // editDriver(driverInput: UpdateDriverInfoDto): Promise<boolean>;
   checkIsDriverInSystem(email: string): Promise<boolean>;
   getDriverInfoByUserEmail(email: string): Promise<DriverinfoDto>;
+  getEnumCarTypes(): Promise<EnumCarTypesDto[]>;
 }
