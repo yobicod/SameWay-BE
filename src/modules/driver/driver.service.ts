@@ -3,6 +3,7 @@ import { PrismaService } from 'src/modules/prisma/prisma.service';
 import {
   CreateDriverInfoDto,
   DriverinfoDto,
+  EnumCarTypesDto,
   UpdateDriverInfoDto,
 } from './dto/driver.dto';
 import { Domain } from 'src/constants/enum';
@@ -18,6 +19,19 @@ export class DriverService implements IDriverServiceInterface {
     } catch (error) {
       console.log(
         '🚀 ~ file: driver.service.ts:13 ~ DriverService ~ getAllDrivers ~ error:',
+        error,
+      );
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  public async getEnumCarTypes(): Promise<EnumCarTypesDto[]> {
+    try {
+      const allCartypes = await this.prisma.enumCarType.findMany();
+      return allCartypes;
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: driver.service.ts:33 ~ DriverService ~ getEnumCarTyeps ~ error:',
         error,
       );
       throw new InternalServerErrorException(error.message);
