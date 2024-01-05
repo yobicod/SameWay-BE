@@ -1,3 +1,9 @@
+-- Delete existing rows
+DELETE FROM enum_genders;
+DELETE FROM enum_problems;
+DELETE FROM enum_car_types;
+
+-- Insert new values
 INSERT INTO enum_genders (value, description)
 VALUES 
   ('ชาย', ''),
@@ -12,3 +18,7 @@ VALUES
   ('การละเมิดต่างๆ', ''),
   ('การขนส่งของผิดกฎหมาย', '');
   
+INSERT INTO enum_car_types (value, description)
+VALUES 
+  ('รถยนต์', ''),
+  ('รถจักรยานยนต์', '');
