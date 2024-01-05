@@ -17,6 +17,8 @@ model Driver {
   userEmail   String?   @unique
   fullName    String?
   gender      String?
+  dob         String?
+  model       String?
   user        User?     @relation(fields: [userEmail], references: [email])
 
   @@map("driver")
@@ -52,12 +54,12 @@ model Booking {
   driverCreateAt    DateTime
   driverGender      String
   deliverType       String
-  price Int
   createdAt         DateTime @default(now())
   updatedAt         DateTime @default(now())
   carType           String
   plate             String
   capacity          Int
+  price             Int
 
   @@map("booking")
 }
