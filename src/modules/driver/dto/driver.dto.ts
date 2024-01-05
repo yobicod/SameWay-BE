@@ -56,10 +56,16 @@ export class CreateDriverInfoDto {
   fullName: string;
 
   @IsString()
+  dob: string;
+
+  @IsString()
   plate: string;
 
   @IsString()
   carType: string;
+
+  @IsString()
+  model: string;
 
   @IsString()
   gender: string;
