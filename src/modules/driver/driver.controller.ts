@@ -13,6 +13,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   CreateDriverInfoDto,
   DriverinfoDto,
+  EnumCarTypesDto,
   UpdateDriverInfoDto,
 } from './dto/driver.dto';
 import { IDriverServiceInterface } from './interfaces/driver.service.interface';
@@ -23,12 +24,26 @@ import { ROLE } from 'src/constants/enum';
 @ApiTags('driver')
 @ApiBearerAuth()
 @Controller('driver')
-export class DriverController implements IDriverServiceInterface {
+export class DriverController {
   constructor(private readonly driverService: DriverService) {}
   @Get()
   async getAllDrivers(): Promise<DriverinfoDto[]> {
     const allDrivers = await this.driverService.getAllDrivers();
     return allDrivers;
+  }
+
+  @Get('enum-car-types')
+  async getEnumCarTypes(): Promise<EnumCarTypesDto[]> {
+    const enums = await this.driverService.getEnumCarTypes();
+    return enums;
+  }
+
+  @Get('get-driver-info-by-user-email/:email')
+  async getDriverByUserEmail(
+    @Param('email') email: string,
+  ): Promise<DriverinfoDto> {
+    const driverInfo = await this.driverService.getDriverInfoByUserEmail(email);
+    return driverInfo;
   }
 
   @Get('is-driver-in-system/:email')

@@ -10,7 +10,7 @@ export class NotifyController {
   @Post('line')
   async notify(@Body() emergencyInput: IEmergencyNotificationDto) {
     const isNotify = await this.notifyService.notifyLineChannel(emergencyInput);
-    await this.notifyService.createNotificationLog(emergencyInput);
+    // await this.notifyService.createNotificationLog(emergencyInput);
     return isNotify;
   }
 

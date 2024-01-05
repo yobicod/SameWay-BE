@@ -56,14 +56,27 @@ export class CreateDriverInfoDto {
   fullName: string;
 
   @IsString()
+  dob: string;
+
+  @IsString()
   plate: string;
 
   @IsString()
   carType: string;
 
   @IsString()
+  model: string;
+
+  @IsString()
   gender: string;
 
   @IsString()
   phoneNumber: string;
+}
+
+export class EnumCarTypesDto {
+  @IsString()
+  value: string;
+  @IsString()
+  description: string;
 }
