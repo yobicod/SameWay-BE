@@ -82,8 +82,6 @@ export class DriverService implements IDriverServiceInterface {
     }
   }
 
-  p;
-
   public async createDriver(
     createDriverInput: CreateDriverInfoDto,
   ): Promise<boolean> {

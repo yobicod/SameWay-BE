@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { IEmergencyNotificationDto } from './dto/notify.dto';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
 import { INotifyService } from './interfaces/notify.interface';
-import { error } from 'console';
+
 import axios from 'axios';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class NotifyService implements INotifyService {
         this.configService.get('LINE_NOTIFY_TEST_TOKEN'),
       );
 
-      const url = 'http://maps.google.com/maps?z=8&t=m&q=loc:38.9419+-78.3020';
+      const url = 'http://maps.google.com/maps?z=8&t=m&q=loc:13.7024+100.6985';
 
       const tinyUrl = await axios.get(`${process.env.TINY_URL}${url}`, {
         params: {
