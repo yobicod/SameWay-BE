@@ -36,9 +36,7 @@ export class GatewayService implements OnModuleInit {
 
   onModuleInit() {
     this.server.on('connection', (socket) => {
-      console.log('Connecting to server... ⏰');
-      console.log(`Socket id: ${socket.id}`);
-      console.log(`Connected ✅`);
+      console.log(`Socket id: ${socket.id} : => Connected ✅`);
     });
   }
 
@@ -102,52 +100,61 @@ export class GatewayService implements OnModuleInit {
     @MessageBody() body: any,
     @ConnectedSocket() socket: Socket,
   ) {
-    // Example usage
-    const passengerLocation = {
-      latitude: 40.7128,
-      longitude: -74.006,
-    };
-    const driverLocation = {
-      latitude: 40.7141,
-      longitude: -74.006,
-    };
-    const circleRadius = 1; // Radius in kilometers
+    try {
+      console.log('********************************');
+      console.log(body);
 
-    const isMatch = findCircleIntersection(
-      passengerLocation,
-      driverLocation,
-      circleRadius,
-    );
+      // Set distance
+      const circleRadius = 1;
 
-    if (isMatch) {
-      console.log(
-        'Match: Passenger and Driver are within the intersecting circles.',
+      // create passenger obj
+      const passengerLocation = {
+        latitude: body.userLat,
+        longitude: body.userLong,
+      };
+
+      // get driver who is available in redis
+      const driversInredis = JSON.parse(
+        await this.redis.get('DriverAvailable'),
       );
-    } else {
-      console.log(
-        'No Match: Passenger and Driver are not within the intersecting circles.',
+
+      // find driver who match with user lat lng
+      let matchDriverList = [];
+      driversInredis.map((driver) => {
+        const driverLocation = {
+          latitude: driver.driverLat,
+          longitude: driver.driverLong,
+        };
+
+        const isMatch = findCircleIntersection(
+          passengerLocation,
+          driverLocation,
+          circleRadius,
+        );
+
+        if (isMatch) {
+          console.log('Math with these driver : ', driver);
+          matchDriverList.push(driver);
+        }
+      });
+
+      // create instance for passenger
+      const passengerSocketInstance = this.server.sockets.sockets.get(
+        socket.id,
       );
+
+      // emit to client(passenger)
+      console.log('before emit', socket.id);
+      passengerSocketInstance.emit('waitingForDriver', matchDriverList);
+      console.log('emit successfull');
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: gateway.service.ts:108 ~ GatewayService ~ error:',
+        error.message,
+      );
+
+      throw new InternalServerErrorException('Web socket error');
     }
-
-    const driversInredis = JSON.parse(await this.redis.get('DriverOpen'));
-    console.log(
-      '🚀 ~ file: gateway.service.ts:89 ~ GatewayService ~ waitForPassenger ~ driversInredis:',
-      driversInredis,
-    );
-    const selectedDriver = driversInredis[driversInredis.length - 1];
-    console.log(
-      '🚀 ~ file: gateway.service.ts:94 ~ GatewayService ~ waitForPassenger ~ selectedDriver:',
-      selectedDriver,
-    );
-
-    const driverSocketInstance = this.server.sockets.sockets.get(socket.id);
-
-    setTimeout(() => {
-      driverSocketInstance.emit(
-        'waitingForDriver',
-        'Finally find driver... with socketId: ' + socket.id,
-      );
-    }, 5000);
   }
 
   @SubscribeMessage('test')
