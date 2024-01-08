@@ -163,4 +163,15 @@ export class GatewayService implements OnModuleInit {
     const socketInstance = this.server.sockets.sockets.get(socket.id);
     socketInstance.emit('customEvent', 'Msg from server...📊');
   }
+
+  @SubscribeMessage('join')
+  async joinRoom(@MessageBody() body: any, @ConnectedSocket() socket: Socket) {
+    try {
+      socket.join('room1');
+      socket.to('room1').emit('roomMessage', body);
+    } catch (error) {
+      console.error('Error joining room:', error);
+      throw new InternalServerErrorException(error.message);
+    }
+  }
 }
